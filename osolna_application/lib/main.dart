@@ -71,27 +71,30 @@ class SplashScreen extends StatelessWidget {
                 /**
                  * [SecondSentence] 솔직하게 표현해봐요
                  */
-                RichText(
-                  textAlign: TextAlign.start,
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: ' 솔 ',
-                        style: TextStyle(
-                          color: logoColor,
-                          fontSize: 40.0,
-                          fontFamily: nanumMyeongjo,
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: RichText(
+                    textAlign: TextAlign.start,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '솔 ',
+                          style: TextStyle(
+                            color: logoColor,
+                            fontSize: 40.0,
+                            fontFamily: nanumMyeongjo,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: '솔직하게 표현해봐요',
-                        style: TextStyle(
-                          color: maintextColor,
-                          fontSize: 17.0,
-                          fontFamily: nanumGothic,
+                        TextSpan(
+                          text: '솔직하게 표현해봐요',
+                          style: TextStyle(
+                            color: maintextColor,
+                            fontSize: 17.0,
+                            fontFamily: nanumGothic,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 /**
