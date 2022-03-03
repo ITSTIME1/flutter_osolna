@@ -5,3 +5,15 @@
  */
 String nanumMyeongjo = 'NanumMyeongjo';
 String nanumGothic = 'NanumGothic';
+
+// ignore: slash_for_doc_comments
+/**
+ * [Font Size] this variable is icon size and text size
+ * Integrate each text font and icon size
+ * [First] icon size
+ * [Second] icon subtitle font size
+ */
+
+double appbarFontSize = 25.0;
+double iconSize = 18.0;
+double subtextSize = 12.0;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
+import 'package:osolna_application/viewModel/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,7 +9,10 @@ void main() {
 
 // ignore: slash_for_doc_comments
 /**
- * [MyApp] import [SplashScreen]
+ * [MyApp] import [SplashScreen] and [MoodSelectScreen]
+ * this page need to do branching
+ * I used futurebuilder
+ * By using futurebuilder we can use connectionstate 
  */
 
 class MyApp extends StatelessWidget {
@@ -16,10 +20,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: '오솔나',
-      home: SplashScreen(),
+    return FutureBuilder(
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SplashScreen();
+        } else if (snapshot.hasError) {
+          return const CircularProgressIndicator();
+        } else {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: '오솔나',
+            home: MainScreen(),
+          );
+        }
+      },
     );
   }
 }
