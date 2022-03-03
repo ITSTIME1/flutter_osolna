@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
+import 'package:osolna_application/viewModel/mood_select_screen.dart';
 
 // ignore: slash_for_doc_comments
 /**
  * [MainScreen] this page using the sliding panel because that 
- * we want to choice [MoodSelectPage], [MoodStorage], [SimpleMemo], [SimpleMemoStorage]
+ * we want to choice [MoodSelectScreen], [MoodStorageScreen], [SimpleMemoScreen], [SimpleMemoStorageScreen]
  */
 
 class MainScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
+    print('mainscreen');
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -130,19 +132,19 @@ class _MainScreenState extends State<MainScreen> {
         body: const TabBarView(
           children: <Widget>[
             /**
-             * [MoodSelectPage]
+             * [MoodSelectScreen]
              */
-            Text('test1'),
+            MoodSelectScreen(),
             /**
-             * [MoodStorage]
+             * [MoodStorageScreen]
              */
             Text('test2'),
             /**
-             * [SimpleMemo]
+             * [SimpleMemoScreen]
              */
             Text('test3'),
             /**
-             * [SimpleMemoStorage]
+             * [SimpleMemoStorageScreen]
              */
             Text('test4'),
           ],

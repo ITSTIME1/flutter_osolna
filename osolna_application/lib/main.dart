@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('myapp');
     return FutureBuilder(
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -48,6 +49,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('splashScreen');
     return Scaffold(
       backgroundColor: mainbackgroundColor,
       body: Stack(
