@@ -1,5 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
+import 'package:osolna_application/slideData/sliding_data.dart';
 import 'package:osolna_application/textData/text.dart';
 import 'package:osolna_application/viewModel/mood_select_screen.dart';
 
@@ -17,6 +19,30 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  MoodSelectScreen moodSelectScreen = const MoodSelectScreen();
+  MoodStorageScreen moodStorageScreen = const MoodStorageScreen();
+  SimpleMemoScreen simpleMemoScreen = const SimpleMemoScreen();
+  SimpleMemoStorageScreen simpleMemoStorageScreen =
+      const SimpleMemoStorageScreen();
+
+  @override
+  void initState() {
+    moodSelectScreen;
+    moodStorageScreen;
+    simpleMemoScreen;
+    simpleMemoStorageScreen;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    moodSelectScreen;
+    moodStorageScreen;
+    simpleMemoScreen;
+    simpleMemoStorageScreen;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     print('mainscreen');
@@ -129,24 +155,24 @@ class _MainScreenState extends State<MainScreen> {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
             /**
              * [MoodSelectScreen]
              */
-            MoodSelectScreen(),
+            moodSelectScreen,
             /**
              * [MoodStorageScreen]
              */
-            Text('test2'),
+            moodStorageScreen,
             /**
              * [SimpleMemoScreen]
              */
-            Text('test3'),
+            simpleMemoScreen,
             /**
              * [SimpleMemoStorageScreen]
              */
-            Text('test4'),
+            simpleMemoStorageScreen,
           ],
         ),
       ),
