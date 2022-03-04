@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/slideData/sliding_data.dart';
+import 'package:osolna_application/textData/text.dart';
 
 // ignore: slash_for_doc_comments
 /**
@@ -18,23 +20,54 @@ class MoodSelectScreen extends StatefulWidget {
 class _MoodSelectScreenState extends State<MoodSelectScreen> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     print('MoodSelectScreen');
     return CarouselSlider.builder(
       itemCount: MoodSelect.card.length,
       itemBuilder: (BuildContext context, int index, int _) {
         return Stack(
           children: [
-            Image.asset(
-              MoodSelect.card[index].image!,
-            ),
-            Text(
-              MoodSelect.card[index].slideTitle!,
+            Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '오늘의 나의 감정은',
+                      style: TextStyle(
+                        color: maintextColor,
+                        fontFamily: nanumMyeongjo,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height / 25,
+                    ),
+                    Text(
+                      MoodSelect.card[index].moodTitle!,
+                      style: TextStyle(
+                        color: maintextColor,
+                        fontSize: subtextSize,
+                        fontFamily: nanumMyeongjo,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height / 25,
+                    ),
+                    Image.asset(
+                      MoodSelect.card[index].image!,
+                      height: size.height / 2,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         );
       },
       options: CarouselOptions(
-        height: MediaQuery.of(context).size.height / 2,
+        initialPage: 0,
+        aspectRatio: 16 / 9,
+        height: size.height / 1,
       ),
     );
   }
