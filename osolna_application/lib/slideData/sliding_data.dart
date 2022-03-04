@@ -19,13 +19,13 @@ class MoodSelect {
 
   static final List<MoodSelect> card = [
     /**
-     * [기쁨]
+     * [행복]
      */
     MoodSelect(
       position: 1,
-      moodTitle: '기쁨',
+      moodTitle: '행복',
       slideTitle: '"정말 고마워. 나한테 정말 필요한 꿈이었어.\n이게 네가 찾던 꿈이길 바라"',
-      image: 'lib/imageData/기쁨.png',
+      image: 'lib/imageData/행복.png',
       cardInformation: '달러구트 꿈백화점2\n- 이미예 -',
     ),
     /**

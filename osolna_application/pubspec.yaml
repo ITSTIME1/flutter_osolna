@@ -60,7 +60,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/imageData/기쁨.png
+    - lib/imageData/행복.png
     - lib/imageData/사랑.png
     - lib/imageData/슬픔.png
     - lib/imageData/위로.png
