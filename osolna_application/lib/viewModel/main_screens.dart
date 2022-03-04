@@ -53,6 +53,15 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
                     SizedBox(
                       height: size.height / 25,
                     ),
+                    /***
+                     * 이미지를 눌렀을때
+
+if(MoodSection.card[index].moodTitle = '행복'){
+// 행복저장
+	title = MoodSection.card[index].moodTitle;
+	Navigation.push(context => MateriaPageRoute(builder(context) => MemoWrite());
+}
+                     */
                     Image.asset(
                       MoodSelect.card[index].image!,
                       height: size.height / 2,
