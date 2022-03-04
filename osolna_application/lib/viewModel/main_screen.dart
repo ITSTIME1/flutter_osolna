@@ -131,9 +131,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         body: TabBarView(
           children: <Widget>[
-            /**
-             * [MoodSelectScreen]
-             */
+            // ** MoodSelectScreen **
             const MoodSelectScreen(),
             /**
              * [MoodStorageScreen]

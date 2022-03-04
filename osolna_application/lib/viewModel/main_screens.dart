@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:osolna_application/slideData/sliding_data.dart';
 
 // ignore: slash_for_doc_comments
 /**
@@ -17,12 +18,24 @@ class MoodSelectScreen extends StatefulWidget {
 class _MoodSelectScreenState extends State<MoodSelectScreen> {
   @override
   Widget build(BuildContext context) {
+    print('MoodSelectScreen');
     return CarouselSlider.builder(
-      itemCount: 5,
-      itemBuilder: (BuildContext context, int index, int pageViewIndex) {
-        return const Text('테스트');
+      itemCount: MoodSelect.card.length,
+      itemBuilder: (BuildContext context, int index, int _) {
+        return Stack(
+          children: [
+            Image.asset(
+              MoodSelect.card[index].image!,
+            ),
+            Text(
+              MoodSelect.card[index].slideTitle!,
+            ),
+          ],
+        );
       },
-      options: CarouselOptions(),
+      options: CarouselOptions(
+        height: MediaQuery.of(context).size.height / 2,
+      ),
     );
   }
 }
