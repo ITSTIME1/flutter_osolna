@@ -10,7 +10,7 @@ class MoodSelect {
   String? cardInformation;
 
   MoodSelect(
-      {this.cardInformation, this.image, this.moodTitle, this.slideTitle});
+      {this.moodTitle, this.image, this.cardInformation, this.slideTitle});
 
   List<MoodSelect> card = [
     /**

@@ -1,5 +1,12 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+// ignore: slash_for_doc_comments
+/**
+ * [MoodSelectScreen] This class is MoodSelectScreen
+ * By using carouselSlider, choice today mood card
+ */
+// ignore: must_be_immutable
 class MoodSelectScreen extends StatefulWidget {
   const MoodSelectScreen({Key? key}) : super(key: key);
 
@@ -10,10 +17,20 @@ class MoodSelectScreen extends StatefulWidget {
 class _MoodSelectScreenState extends State<MoodSelectScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return CarouselSlider.builder(
+      itemCount: 5,
+      itemBuilder: (BuildContext context, int index, int pageViewIndex) {
+        return const Text('테스트');
+      },
+      options: CarouselOptions(),
+    );
   }
 }
 
+// ignore: slash_for_doc_comments
+/**
+ * [MoodStorageScreen]
+ */
 class MoodStorageScreen extends StatefulWidget {
   const MoodStorageScreen({Key? key}) : super(key: key);
 
@@ -24,11 +41,14 @@ class MoodStorageScreen extends StatefulWidget {
 class _MoodStorageScreenState extends State<MoodStorageScreen> {
   @override
   Widget build(BuildContext context) {
-    print('modelStorageScreen');
     return Container();
   }
 }
 
+// ignore: slash_for_doc_comments
+/**
+ * [SimpleMemoScreen]
+ */
 class SimpleMemoScreen extends StatefulWidget {
   const SimpleMemoScreen({Key? key}) : super(key: key);
 
@@ -39,11 +59,14 @@ class SimpleMemoScreen extends StatefulWidget {
 class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
   @override
   Widget build(BuildContext context) {
-    print('simpleMemoScreen');
     return Container();
   }
 }
 
+// ignore: slash_for_doc_comments
+/**
+ * [SimpleMemoStorageScreen]
+ */
 class SimpleMemoStorageScreen extends StatefulWidget {
   const SimpleMemoStorageScreen({Key? key}) : super(key: key);
 
@@ -55,7 +78,6 @@ class SimpleMemoStorageScreen extends StatefulWidget {
 class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
   @override
   Widget build(BuildContext context) {
-    print('simpleMemoStorageScreen');
     return Container();
   }
 }
