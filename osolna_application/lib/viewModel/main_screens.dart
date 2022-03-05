@@ -59,39 +59,34 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
                   onTap: () async {
                     if (MoodSelect.card[index].moodTitle == '행복') {
                       final selectMoodText = MoodSelect.card[index].moodTitle;
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  MainMemoScreen(moodText: selectMoodText)));
+                      await Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return MainMemoScreen(moodText: selectMoodText);
+                      }));
                     } else if (MoodSelect.card[index].moodTitle == '사랑') {
                       final selectMoodText = MoodSelect.card[index].moodTitle;
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  MainMemoScreen(moodText: selectMoodText)));
+                      await Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return MainMemoScreen(moodText: selectMoodText);
+                      }));
                     } else if (MoodSelect.card[index].moodTitle == '위로') {
                       final selectMoodText = MoodSelect.card[index].moodTitle;
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  MainMemoScreen(moodText: selectMoodText)));
+                      await Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return MainMemoScreen(moodText: selectMoodText);
+                      }));
                     } else if (MoodSelect.card[index].moodTitle == '슬픔') {
                       final selectMoodText = MoodSelect.card[index].moodTitle;
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  MainMemoScreen(moodText: selectMoodText)));
+                      await Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return MainMemoScreen(moodText: selectMoodText);
+                      }));
                     } else if (MoodSelect.card[index].moodTitle == '화남') {
                       final selectMoodText = MoodSelect.card[index].moodTitle;
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  MainMemoScreen(moodText: selectMoodText)));
+                      await Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return MainMemoScreen(moodText: selectMoodText);
+                      }));
                     }
                   },
                   child: Image.asset(
