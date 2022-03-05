@@ -16,4 +16,6 @@ String nanumGothic = 'NanumGothic';
 
 double appbarFontSize = 25.0;
 double iconSize = 18.0;
-double subtextSize = 12.0;
+double subTextSize = 12.0;
+double hintTextSize = 15.0;
+double titleTextColor = 12.0;

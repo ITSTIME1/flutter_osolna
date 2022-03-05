@@ -70,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
                   Text(
                     '메인페이지',
                     style: TextStyle(
-                      fontSize: subtextSize,
+                      fontSize: subTextSize,
                     ),
                   ),
                 ],
@@ -87,7 +87,7 @@ class _MainScreenState extends State<MainScreen> {
                   Text(
                     '감정저장소',
                     style: TextStyle(
-                      fontSize: subtextSize,
+                      fontSize: subTextSize,
                     ),
                   ),
                 ],
@@ -104,7 +104,7 @@ class _MainScreenState extends State<MainScreen> {
                   Text(
                     '간단메모',
                     style: TextStyle(
-                      fontSize: subtextSize,
+                      fontSize: subTextSize,
                     ),
                   ),
                 ],
@@ -121,7 +121,7 @@ class _MainScreenState extends State<MainScreen> {
                   Text(
                     '메모저장소',
                     style: TextStyle(
-                      fontSize: subtextSize,
+                      fontSize: subTextSize,
                     ),
                   ),
                 ],
