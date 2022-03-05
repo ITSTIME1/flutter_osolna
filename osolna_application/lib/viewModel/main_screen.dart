@@ -68,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
                     height: 5.0,
                   ),
                   Text(
-                    '메인페이지',
+                    '다이어리',
                     style: TextStyle(
                       fontSize: subTextSize,
                     ),
