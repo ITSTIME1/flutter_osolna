@@ -36,6 +36,9 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
               fontSize: appbarFontSize,
             ),
           ),
+
+          // ** Memo Save Button **
+
           actions: const [
             Padding(
               padding: EdgeInsets.only(right: 38.0),

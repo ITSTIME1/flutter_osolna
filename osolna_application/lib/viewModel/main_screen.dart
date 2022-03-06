@@ -136,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
             /**
              * [MoodStorageScreen]
              */
-            Column(),
+            const MoodStorageScreen(),
             /**
              * [SimpleMemoScreen]
              */
