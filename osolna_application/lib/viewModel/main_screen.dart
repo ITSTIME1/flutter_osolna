@@ -140,11 +140,11 @@ class _MainScreenState extends State<MainScreen> {
             /**
              * [SimpleMemoScreen]
              */
-            Column(),
+            const SimpleMemoScreen(),
             /**
              * [SimpleMemoStorageScreen]
              */
-            Column(),
+            const SimpleMemoStorageScreen(),
           ],
         ),
       ),

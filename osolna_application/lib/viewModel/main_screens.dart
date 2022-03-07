@@ -194,7 +194,10 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
 
 // ignore: slash_for_doc_comments
 /**
- * [SimpleMemoScreen]
+ * [SimpleMemoScreen] This class is SimpleMemo Screen
+ * The reason this page exists is because each person have different environment and time.
+ * so if person want to write memo fast, it page is fit
+ * mood select is not, but just only write to your thinking.
  */
 class SimpleMemoScreen extends StatefulWidget {
   const SimpleMemoScreen({Key? key}) : super(key: key);
@@ -206,13 +209,134 @@ class SimpleMemoScreen extends StatefulWidget {
 class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    print('SimpleMemoScreen');
+    Size size = MediaQuery.of(context).size;
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: size.height / 8.5,
+                  ),
+                  Container(
+                    height: size.height / 1.7,
+                    width: size.width / 1.2,
+                    decoration: BoxDecoration(
+                      color: appbarColor,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    padding: const EdgeInsets.all(10.0),
+                    // 제약조건
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxHeight: 200.0,
+                      ),
+                      child: Column(
+                        children: [
+                          /**
+                             * [Title TextField]
+                             */
+
+                          // ** InputTextColor **
+
+                          TextField(
+                            style: TextStyle(
+                              color: contentTextColor,
+                              fontFamily: nanumGothic,
+                              fontSize: titleTextColor,
+                            ),
+
+                            // ** Focusing State Text **
+
+                            decoration: InputDecoration(
+                              hintText: "제목을 적어주세요",
+                              hintStyle: TextStyle(
+                                fontSize: hintTextSize,
+                                fontFamily: nanumMyeongjo,
+                                color: Colors.grey,
+                              ),
+
+                              // ** Static State Text **
+
+                              labelText: "오늘은 어땠어?",
+                              labelStyle: TextStyle(
+                                fontSize: hintTextSize,
+                                color: Colors.white,
+                                fontFamily: nanumMyeongjo,
+                              ),
+
+                              // ** Not Focusing State **
+
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+
+                              // ** Focusing State **
+
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.cyan),
+                              ),
+                            ),
+                          ),
+                          /**
+                             * [Content TextField]
+                             */
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                maxHeight: 200.0,
+                              ),
+                              child: Scrollbar(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  reverse: false,
+                                  child: TextField(
+                                    style: TextStyle(
+                                      color: contentTextColor,
+                                      fontFamily: nanumGothic,
+                                      fontSize: titleTextColor,
+                                    ),
+                                    maxLines: 100,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: '마음을 내려놓고 편하게 써봐요',
+                                      hintStyle: TextStyle(
+                                        fontSize: hintTextSize,
+                                        fontFamily: nanumMyeongjo,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
 // ignore: slash_for_doc_comments
 /**
- * [SimpleMemoStorageScreen]
+ * [SimpleMemoStorageScreen] This class is that When you saved SimpleMemo
+ * you receive the saved data on this page.
  */
 class SimpleMemoStorageScreen extends StatefulWidget {
   const SimpleMemoStorageScreen({Key? key}) : super(key: key);
@@ -225,6 +349,11 @@ class SimpleMemoStorageScreen extends StatefulWidget {
 class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    Size size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        Text('테스트'),
+      ],
+    );
   }
 }
