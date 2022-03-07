@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
-import 'package:osolna_application/viewModel/main_screen.dart';
+import 'package:osolna_application/view/main_screen.dart';
 
 void main() {
   runApp(const MyApp());

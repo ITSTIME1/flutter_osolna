@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
-import 'package:osolna_application/viewModel/main_screens.dart';
+import 'package:osolna_application/view/main_screens.dart';
 
 // ignore: slash_for_doc_comments
 /**

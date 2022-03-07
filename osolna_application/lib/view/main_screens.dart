@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/slideData/sliding_data.dart';
 import 'package:osolna_application/textData/text.dart';
-import 'package:osolna_application/viewModel/main_memo_screen.dart';
-import 'package:osolna_application/viewModel/mood_memo_list_screen.dart';
+import 'package:osolna_application/view/main_memo_screen.dart';
+import 'package:osolna_application/view/mood_memo_list_screen.dart';
 
 // ignore: slash_for_doc_comments
 /**
@@ -223,7 +223,31 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: size.height / 8.5,
+                    height: size.height / 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 25.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          child: Text(
+                            '저장',
+                            style: TextStyle(
+                              color: maintextColor,
+                              fontFamily: nanumMyeongjo,
+                            ),
+                          ),
+                          onPressed: () {
+                            /**
+                             * SimpleMemo Database insert
+                             */
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     height: size.height / 1.7,
