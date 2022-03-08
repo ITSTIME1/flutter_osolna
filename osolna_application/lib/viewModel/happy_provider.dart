@@ -10,8 +10,8 @@ import 'package:path/path.dart';
 
 const String _tableName = 'happyMemo';
 
-class HappyDBHelper extends ChangeNotifier {
-  var _happyDatabase;
+class HappyDatabaseProvider extends ChangeNotifier {
+  static dynamic _happyDatabase;
 
   // ignore: slash_for_doc_comments
   /**
@@ -34,7 +34,7 @@ class HappyDBHelper extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
-   * [HappyDatabase Insert Memo]
+   * [HappyDatabase Insert Memo] this Method is used that you want to insert memo at _tabeName
    */
   Future<void> insertMemo(Memo memo) async {
     final hd = await happyDatabase;
@@ -47,7 +47,7 @@ class HappyDBHelper extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
-   * [HappyDatabase Delete Memo]
+   * [HappyDatabase Delete Memo] This Method is used that you want to delete Memo at _tableName
    */
 
   Future<void> deleteMemo(int id) async {
@@ -62,7 +62,7 @@ class HappyDBHelper extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
-   * [HappyDatabase getAllData]
+   * [HappyDatabase getAllData] This Method is used for ListViewBuilder.
    */
 
   Future<List<Memo>> getHappyMemos() async {
