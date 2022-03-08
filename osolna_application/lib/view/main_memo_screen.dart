@@ -39,12 +39,15 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
 
           // ** Memo Save Button **
 
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.only(right: 38.0),
-              child: Icon(
-                Icons.article_outlined,
-                size: 25.0,
+              padding: const EdgeInsets.only(right: 30.0),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.article_outlined,
+                  size: 25.0,
+                ),
+                onPressed: () {},
               ),
             ),
           ],
