@@ -25,7 +25,8 @@ class HappyDatabaseProvider extends ChangeNotifier {
       join(await getDatabasesPath(), 'happy.memo'),
       onCreate: (db, version) {
         return db.execute(
-            "CREATE TABLE $_tableName(id INTEGER PRIMARY KEY, title TEXT, content TEXT, dateTime TEXT,)");
+          "CREATE TABLE $_tableName(id INTEGER PRIMARY KEY, title TEXT, content TEXT, dateTime TEXT)",
+        );
       },
       version: 1,
     );
@@ -43,6 +44,7 @@ class HappyDatabaseProvider extends ChangeNotifier {
       memo.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    notifyListeners();
   }
 
   // ignore: slash_for_doc_comments

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
+import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/textData/text.dart';
+import 'package:osolna_application/viewModel/happy_provider.dart';
+import 'package:provider/provider.dart';
 
 // ignore: slash_for_doc_comments
 /**
@@ -15,14 +18,22 @@ class MainMemoScreen extends StatefulWidget {
 }
 
 class _MainMemoScreenState extends State<MainMemoScreen> {
+  HappyDatabaseProvider? _happyProvider;
+  dynamic memo;
+  final title = TextEditingController();
+  final content = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    _happyProvider = Provider.of<HappyDatabaseProvider>(context, listen: false);
+    print('프로바이더');
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: mainbackgroundColor,
         appBar: AppBar(
           toolbarHeight: 70.0,
@@ -47,7 +58,18 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                   Icons.article_outlined,
                   size: 25.0,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  // memo 를 받아주고
+                  // map 시키는 provider 메소드에 접근해서 memo를 넘겨준다.
+                  // insertMemo 메서드가 실행되면 메모가 저장된다.
+                  memo = Memo(
+                    title: title.text,
+                    content: content.text,
+                    dateTime: DateTime.now(),
+                  );
+                  _happyProvider!.insertMemo(memo);
+                  print('저장완료');
+                },
               ),
             ),
           ],
@@ -98,6 +120,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                             // ** InputTextColor **
 
                             TextField(
+                              controller: title,
                               style: TextStyle(
                                 color: contentTextColor,
                                 fontFamily: nanumGothic,
@@ -150,6 +173,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                                     scrollDirection: Axis.vertical,
                                     reverse: false,
                                     child: TextField(
+                                      controller: content,
                                       style: TextStyle(
                                         color: contentTextColor,
                                         fontFamily: nanumGothic,

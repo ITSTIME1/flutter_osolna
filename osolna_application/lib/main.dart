@@ -2,9 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
 import 'package:osolna_application/view/main_screen.dart';
+import 'package:osolna_application/viewModel/happy_provider.dart';
+import 'package:provider/provider.dart';
 
+// ignore: slash_for_doc_comments
+/**
+ * [ChangeNotifierProvider] The route can access various mood providers.
+ */
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (BuildContext context) => HappyDatabaseProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 // ignore: slash_for_doc_comments
@@ -31,6 +42,10 @@ class MyApp extends StatelessWidget {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: '오솔나',
+            /**
+             * [ChangeNotifierProvider] This method that access MainScreen(),
+             * After testing database code it needs multiprovider.
+             */
             home: MainScreen(),
           );
         }
