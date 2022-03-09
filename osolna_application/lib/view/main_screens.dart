@@ -127,15 +127,26 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
       children: [
         /**
          * By using onTap of GestureDetector shown you written MoodMemo list
-         * 텍스트 클릭했을때 무드 타이틀에 리스트 목록을 표시 리스트 목록을 표시하는 페이지가 필요함 
+         * 텍스트 클릭했을때 무드 타이틀에 리스트 목록을 표시 리스트 목록을 표시하는 페이지가 필요함
+         * ex) text == 행복 이라면 getHappyMemos 를 MoodMemoList 에 값을 넘겨줌.
+         * ListViewBuilder로 보여줄땐 넘겨준 getHappyMemos 값의 갯수에 따라 보여주고
+         *   
          */
         GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const MoodMemoList()));
+            // ignore: unrelated_type_equality_checks
+            if (MoodSelect.card[0].moodTitle == '행복') {
+              // * HappyDatabase list를 가져와서 MoodMemoList 넘겨줌.
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MoodMemoList(),
+                ),
+              );
+            }
           },
           child: Text(
-            '행복',
+            MoodSelect.card[0].moodTitle!,
             style: TextStyle(
               color: Colors.white,
               fontFamily: nanumMyeongjo,
@@ -146,45 +157,93 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
         SizedBox(
           height: size.height / 10,
         ),
-        Text(
-          '사랑',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: nanumMyeongjo,
-            fontSize: hintTextSize,
+        GestureDetector(
+          onTap: () {
+            if (MoodSelect.card[1].moodTitle == '사랑') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MoodMemoList(),
+                ),
+              );
+            }
+          },
+          child: Text(
+            MoodSelect.card[1].moodTitle!,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: nanumMyeongjo,
+              fontSize: hintTextSize,
+            ),
           ),
         ),
         SizedBox(
           height: size.height / 10,
         ),
-        Text(
-          '위로',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: nanumMyeongjo,
-            fontSize: hintTextSize,
+        GestureDetector(
+          onTap: () {
+            if (MoodSelect.card[2].moodTitle == '위로') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MoodMemoList(),
+                ),
+              );
+            }
+          },
+          child: Text(
+            MoodSelect.card[2].moodTitle!,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: nanumMyeongjo,
+              fontSize: hintTextSize,
+            ),
           ),
         ),
         SizedBox(
           height: size.height / 10,
         ),
-        Text(
-          '슬픔',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: nanumMyeongjo,
-            fontSize: hintTextSize,
+        GestureDetector(
+          onTap: () {
+            if (MoodSelect.card[3].moodTitle == '슬픔') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MoodMemoList(),
+                ),
+              );
+            }
+          },
+          child: Text(
+            MoodSelect.card[3].moodTitle!,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: nanumMyeongjo,
+              fontSize: hintTextSize,
+            ),
           ),
         ),
         SizedBox(
           height: size.height / 10,
         ),
-        Text(
-          '화남',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: nanumMyeongjo,
-            fontSize: hintTextSize,
+        GestureDetector(
+          onTap: () {
+            if (MoodSelect.card[4].moodTitle == '화남') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MoodMemoList(),
+                ),
+              );
+            }
+          },
+          child: Text(
+            MoodSelect.card[4].moodTitle!,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: nanumMyeongjo,
+              fontSize: hintTextSize,
+            ),
           ),
         ),
       ],
