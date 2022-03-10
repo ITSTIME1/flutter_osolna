@@ -2,7 +2,7 @@ class Memo {
   final int? id;
   final String? title;
   final String? content;
-  final DateTime? dateTime;
+  final String? dateTime;
 
   Memo({this.id, this.title, this.content, this.dateTime});
 

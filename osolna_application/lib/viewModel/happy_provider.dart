@@ -74,7 +74,7 @@ class HappyDatabaseProvider extends ChangeNotifier {
       return Memo(
         id: happyMaps[index]['id'],
         title: happyMaps[index]['title'],
-        content: happyMaps[index]['title'],
+        content: happyMaps[index]['content'],
         dateTime: happyMaps[index]['dateTime'],
       );
     });

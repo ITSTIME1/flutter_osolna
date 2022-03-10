@@ -65,7 +65,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                   memo = Memo(
                     title: title.text,
                     content: content.text,
-                    dateTime: DateTime.now(),
+                    dateTime: DateTime.now().toString(),
                   );
                   _happyProvider!.insertMemo(memo);
                   print('저장완료');
