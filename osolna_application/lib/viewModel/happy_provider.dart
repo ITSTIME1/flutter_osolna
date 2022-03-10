@@ -70,13 +70,17 @@ class HappyDatabaseProvider extends ChangeNotifier {
   Future<List<Memo>> getHappyMemos() async {
     final hd = await happyDatabase;
     final List<Map<String, dynamic>> happyMaps = await hd.query(_tableName);
-    return List.generate(happyMaps.length, (index) {
-      return Memo(
-        id: happyMaps[index]['id'],
-        title: happyMaps[index]['title'],
-        content: happyMaps[index]['content'],
-        dateTime: happyMaps[index]['dateTime'],
-      );
-    });
+    notifyListeners();
+    return List.generate(
+      happyMaps.length,
+      (index) {
+        return Memo(
+          id: happyMaps[index]['id'],
+          title: happyMaps[index]['title'],
+          content: happyMaps[index]['content'],
+          dateTime: happyMaps[index]['dateTime'],
+        );
+      },
+    );
   }
 }

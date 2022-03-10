@@ -61,10 +61,11 @@ class _MoodMemoListState extends State<MoodMemoList> {
           return ListView.builder(
             itemCount: (snap.data as List).length,
             itemBuilder: (context, index) {
-              Memo memo = (snap.data as List)[index];
+              var memo = (snap.data as List)[index];
+              print(memo);
               return Column(
                 children: [
-                  Text(memo.content!),
+                  Text(memo.dateTime!),
                 ],
               );
             },
