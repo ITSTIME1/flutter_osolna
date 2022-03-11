@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/textData/text.dart';
+import 'package:osolna_application/viewModel/angry_provider.dart';
+import 'package:osolna_application/viewModel/consolation_provider.dart';
 import 'package:osolna_application/viewModel/happy_provider.dart';
+import 'package:osolna_application/viewModel/love_provider.dart';
+import 'package:osolna_application/viewModel/sadness_provider.dart';
 import 'package:provider/provider.dart';
 
 // ignore: slash_for_doc_comments
@@ -26,6 +30,11 @@ class MoodMemoList extends StatefulWidget {
 
 class _MoodMemoListState extends State<MoodMemoList> {
   HappyDatabaseProvider? _happyProvider = HappyDatabaseProvider();
+  LoveDatabaseProvider? _loveProvider = LoveDatabaseProvider();
+  ConsolationDatabaseProvider? _consolationProvider =
+      ConsolationDatabaseProvider();
+  SadnessDatabaseProvider? _sadnessProvider = SadnessDatabaseProvider();
+  AngryDatabaseProvider? _angryProvider = AngryDatabaseProvider();
 
   /***/
 
@@ -38,9 +47,14 @@ class _MoodMemoListState extends State<MoodMemoList> {
     if (widget.selectTitle == '행복') {
       return await _happyProvider!.getHappyMemos();
     } else if (widget.selectTitle == '사랑') {
+      return await _loveProvider!.getLoveMemos();
     } else if (widget.selectTitle == '위로') {
+      return await _consolationProvider!.getConsolationMemos();
     } else if (widget.selectTitle == '슬픔') {
-    } else if (widget.selectTitle == '화남') {}
+      return await _sadnessProvider!.getSadnessMemos();
+    } else if (widget.selectTitle == '화남') {
+      return await _angryProvider!.getAngryMemos();
+    }
     // ignore: null_check_always_fails
     return null!;
   }
@@ -56,13 +70,21 @@ class _MoodMemoListState extends State<MoodMemoList> {
       builder: (context, snap) {
         // ignore: unrelated_type_equality_checks
         if (snap.data == null || snap.data!.isEmpty) {
-          return const CircularProgressIndicator();
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(
+                  color: logoColor,
+                ),
+              ],
+            ),
+          );
         } else {
           return ListView.builder(
             itemCount: (snap.data as List).length,
             itemBuilder: (context, index) {
               var memo = (snap.data as List)[index];
-              print(memo);
               return Column(
                 children: [
                   Text(memo.dateTime!),
@@ -77,7 +99,16 @@ class _MoodMemoListState extends State<MoodMemoList> {
 
   @override
   Widget build(BuildContext context) {
+    /**
+     * [Providers]
+     */
     _happyProvider = Provider.of<HappyDatabaseProvider>(context, listen: false);
+    _loveProvider = Provider.of<LoveDatabaseProvider>(context, listen: false);
+    _consolationProvider =
+        Provider.of<ConsolationDatabaseProvider>(context, listen: false);
+    _sadnessProvider =
+        Provider.of<SadnessDatabaseProvider>(context, listen: false);
+    _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
     // 그 외에 provider 접근.
     print('memolist');
     // Future<List<Memo>>
@@ -111,10 +142,17 @@ class _MoodMemoListState extends State<MoodMemoList> {
        * [MoodConsumer] This can access multiProvider
        * etc. happy, sad, love..
        */
-      body: Consumer5(
+      body: Consumer5<
+          HappyDatabaseProvider,
+          LoveDatabaseProvider,
+          ConsolationDatabaseProvider,
+          SadnessDatabaseProvider,
+          AngryDatabaseProvider>(
         builder: (BuildContext context, happyProvider1, loveProvider2,
             consolationProvider3, sadnessProvider4, angryProvider5, child) {
-          return memoListView();
+          return Container(
+            child: memoListView(),
+          );
         },
       ),
     );
