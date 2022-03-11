@@ -38,6 +38,28 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   SadnessDatabaseProvider? _sadnessProvider;
   AngryDatabaseProvider? _angryProvider;
 
+  @override
+  void initState() {
+    _happyProvider = Provider.of<HappyDatabaseProvider>(context, listen: false);
+    _loveProvider = Provider.of<LoveDatabaseProvider>(context, listen: false);
+    _consolationProvider =
+        Provider.of<ConsolationDatabaseProvider>(context, listen: false);
+    _sadnessProvider =
+        Provider.of<SadnessDatabaseProvider>(context, listen: false);
+    _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _happyProvider;
+    _loveProvider;
+    _consolationProvider;
+    _sadnessProvider;
+    _angryProvider;
+    super.dispose();
+  }
+
   // ignore: slash_for_doc_comments
   /**
    * [MoodShowDialog Method] This Method can show AlertDialog when you success the save button
@@ -86,16 +108,62 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     );
   }
 
+  // ignore: slash_for_doc_comments
+  /**
+   * [MoodSaveButton Method] This Method can save wrote memo
+   */
+  void saveMemoButton() async {
+    if (widget.moodText == '행복') {
+      await _happyProvider!.insertMemo(
+        memo = Memo(
+          title: title.text,
+          content: content.text,
+          dateTime: DateTime.now().toString(),
+        ),
+      );
+
+      moodMemoCompelete();
+    } else if (widget.moodText == '사랑') {
+      await _loveProvider!.insertMemo(
+        memo = Memo(
+          title: title.text,
+          content: content.text,
+          dateTime: DateTime.now().toString(),
+        ),
+      );
+      moodMemoCompelete();
+    } else if (widget.moodText == '위로') {
+      await _consolationProvider!.insertMemo(
+        memo = Memo(
+          title: title.text,
+          content: content.text,
+          dateTime: DateTime.now().toString(),
+        ),
+      );
+      moodMemoCompelete();
+    } else if (widget.moodText == '슬픔') {
+      await _sadnessProvider!.insertMemo(
+        memo = Memo(
+          title: title.text,
+          content: content.text,
+          dateTime: DateTime.now().toString(),
+        ),
+      );
+      moodMemoCompelete();
+    } else if (widget.moodText == '화남') {
+      await _angryProvider!.insertMemo(
+        memo = Memo(
+          title: title.text,
+          content: content.text,
+          dateTime: DateTime.now().toString(),
+        ),
+      );
+      moodMemoCompelete();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    _happyProvider = Provider.of<HappyDatabaseProvider>(context, listen: false);
-    _loveProvider = Provider.of<LoveDatabaseProvider>(context, listen: false);
-    _consolationProvider =
-        Provider.of<ConsolationDatabaseProvider>(context, listen: false);
-    _sadnessProvider =
-        Provider.of<SadnessDatabaseProvider>(context, listen: false);
-    _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
-
     print('MainMemoScreen');
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
@@ -128,59 +196,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                   Icons.article_outlined,
                   size: 25.0,
                 ),
-                onPressed: () async {
-                  if (widget.moodText == '행복') {
-                    await _happyProvider!.insertMemo(
-                      memo = Memo(
-                        title: title.text,
-                        content: content.text,
-                        dateTime: DateTime.now().toString(),
-                      ),
-                    );
-                    moodMemoCompelete();
-                    print('행복메모 저장 성공');
-                  } else if (widget.moodText == '사랑') {
-                    await _loveProvider!.insertMemo(
-                      memo = Memo(
-                        title: title.text,
-                        content: content.text,
-                        dateTime: DateTime.now().toString(),
-                      ),
-                    );
-                    moodMemoCompelete();
-                    print('사랑메모 저장 성공');
-                  } else if (widget.moodText == '위로') {
-                    await _consolationProvider!.insertMemo(
-                      memo = Memo(
-                        title: title.text,
-                        content: content.text,
-                        dateTime: DateTime.now().toString(),
-                      ),
-                    );
-                    moodMemoCompelete();
-                    print('위로메모 저장 성공');
-                  } else if (widget.moodText == '슬픔') {
-                    await _sadnessProvider!.insertMemo(
-                      memo = Memo(
-                        title: title.text,
-                        content: content.text,
-                        dateTime: DateTime.now().toString(),
-                      ),
-                    );
-                    moodMemoCompelete();
-                    print('슬픔메모 저장 성공');
-                  } else if (widget.moodText == '화남') {
-                    await _angryProvider!.insertMemo(
-                      memo = Memo(
-                        title: title.text,
-                        content: content.text,
-                        dateTime: DateTime.now().toString(),
-                      ),
-                    );
-                    moodMemoCompelete();
-                    print('화남메모 저장 성공');
-                  }
-                },
+                onPressed: () async => saveMemoButton(),
               ),
             ),
           ],

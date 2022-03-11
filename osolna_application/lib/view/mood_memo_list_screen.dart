@@ -29,13 +29,37 @@ class MoodMemoList extends StatefulWidget {
 }
 
 class _MoodMemoListState extends State<MoodMemoList> {
-  HappyDatabaseProvider? _happyProvider = HappyDatabaseProvider();
-  LoveDatabaseProvider? _loveProvider = LoveDatabaseProvider();
-  ConsolationDatabaseProvider? _consolationProvider =
-      ConsolationDatabaseProvider();
-  SadnessDatabaseProvider? _sadnessProvider = SadnessDatabaseProvider();
-  AngryDatabaseProvider? _angryProvider = AngryDatabaseProvider();
+  // ignore: slash_for_doc_comments
+  /**
+   * [Providers] can access the provider
+   */
+  HappyDatabaseProvider? _happyProvider;
+  LoveDatabaseProvider? _loveProvider;
+  ConsolationDatabaseProvider? _consolationProvider;
+  SadnessDatabaseProvider? _sadnessProvider;
+  AngryDatabaseProvider? _angryProvider;
 
+  @override
+  void initState() {
+    _happyProvider = Provider.of<HappyDatabaseProvider>(context, listen: false);
+    _loveProvider = Provider.of<LoveDatabaseProvider>(context, listen: false);
+    _consolationProvider =
+        Provider.of<ConsolationDatabaseProvider>(context, listen: false);
+    _sadnessProvider =
+        Provider.of<SadnessDatabaseProvider>(context, listen: false);
+    _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _happyProvider;
+    _loveProvider;
+    _consolationProvider;
+    _sadnessProvider;
+    _angryProvider;
+    super.dispose();
+  }
   /***/
 
   // ignore: slash_for_doc_comments
@@ -202,9 +226,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {
-                                deleteMemo(memo.id);
-                              },
+                              onPressed: () => deleteMemo(memo.id),
                               child: Text(
                                 '삭제',
                                 style: TextStyle(
@@ -231,16 +253,6 @@ class _MoodMemoListState extends State<MoodMemoList> {
 
   @override
   Widget build(BuildContext context) {
-    /**
-     * [Providers]
-     */
-    _happyProvider = Provider.of<HappyDatabaseProvider>(context, listen: false);
-    _loveProvider = Provider.of<LoveDatabaseProvider>(context, listen: false);
-    _consolationProvider =
-        Provider.of<ConsolationDatabaseProvider>(context, listen: false);
-    _sadnessProvider =
-        Provider.of<SadnessDatabaseProvider>(context, listen: false);
-    _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
     // 그 외에 provider 접근.
     print('memolist');
     // Future<List<Memo>>
