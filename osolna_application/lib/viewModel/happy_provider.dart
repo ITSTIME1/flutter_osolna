@@ -60,6 +60,7 @@ class HappyDatabaseProvider extends ChangeNotifier {
       where: "id = ?",
       whereArgs: [id],
     );
+    notifyListeners();
   }
 
   // ignore: slash_for_doc_comments

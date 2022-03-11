@@ -47,7 +47,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [ListView Widget]
+   * [ListView Widget] This Widget is only shown loadMemo() interface
    */
 
   Widget memoListView() {

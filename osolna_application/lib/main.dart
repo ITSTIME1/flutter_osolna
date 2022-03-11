@@ -2,19 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
 import 'package:osolna_application/view/main_screen.dart';
+import 'package:osolna_application/viewModel/angry_provider.dart';
+import 'package:osolna_application/viewModel/consolation_provider.dart';
 import 'package:osolna_application/viewModel/happy_provider.dart';
+import 'package:osolna_application/viewModel/love_provider.dart';
+import 'package:osolna_application/viewModel/sadness_provider.dart';
 import 'package:provider/provider.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [ChangeNotifierProvider] The route can access various mood providers.
+ * [MultiProvider] The route can access various mood providers.
+ * HappyProvider, LoveProvider, ConsolationProvider, SadnessProvider, AngryProvider
  */
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (BuildContext context) => HappyDatabaseProvider(),
-      child: const MyApp(),
-    ),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(
+          create: (BuildContext context) => HappyDatabaseProvider()),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => LoveDatabaseProvider()),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => ConsolationDatabaseProvider()),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => SadnessDatabaseProvider()),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => AngryDatabaseProvider()),
+    ], child: const MyApp()),
   );
 }
 
@@ -42,10 +55,6 @@ class MyApp extends StatelessWidget {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: '오솔나',
-            /**
-             * [ChangeNotifierProvider] This method that access MainScreen(),
-             * After testing database code it needs multiprovider.
-             */
             home: MainScreen(),
           );
         }
