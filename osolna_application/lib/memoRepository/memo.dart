@@ -11,7 +11,7 @@ class Memo {
       'id': id,
       'title': title,
       'content': content,
-      'dateTime': dateTime.toString(),
+      'dateTime': dateTime,
     };
   }
 

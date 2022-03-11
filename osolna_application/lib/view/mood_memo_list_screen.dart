@@ -61,10 +61,30 @@ class _MoodMemoListState extends State<MoodMemoList> {
 
   // ignore: slash_for_doc_comments
   /**
+   * [MoodMemos Delete Mood Memos method]
+   */
+
+  Future<void> deleteMemo(int id) async {
+    if (widget.selectTitle == '행복') {
+      await _happyProvider!.deleteMemo(id);
+    } else if (widget.selectTitle == '사랑') {
+      await _loveProvider!.deleteMemo(id);
+    } else if (widget.selectTitle == '위로') {
+      await _consolationProvider!.deleteMemo(id);
+    } else if (widget.selectTitle == '슬픔') {
+      await _sadnessProvider!.deleteMemo(id);
+    } else if (widget.selectTitle == '화남') {
+      await _angryProvider!.deleteMemo(id);
+    }
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
    * [ListView Widget] This Widget is only shown loadMemo() interface
    */
 
   Widget memoListView() {
+    Size size = MediaQuery.of(context).size;
     return FutureBuilder<List<Memo>>(
       future: loadMemo(),
       builder: (context, snap) {
@@ -82,12 +102,124 @@ class _MoodMemoListState extends State<MoodMemoList> {
           );
         } else {
           return ListView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: (snap.data as List).length,
             itemBuilder: (context, index) {
+              /**
+               * [Memo List Value]
+               */
               var memo = (snap.data as List)[index];
               return Column(
                 children: [
-                  Text(memo.dateTime!),
+                  Stack(
+                    children: [
+                      Container(
+                        height: size.height / 8,
+                        decoration: BoxDecoration(
+                          color: appbarColor,
+                          border: Border.all(
+                            color: logoColor,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            /**
+                           * [MemoDatabase DateTime]
+                           */
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      memo.dateTime!,
+                                      style: TextStyle(
+                                        color: maintextColor,
+                                        fontFamily: nanumMyeongjo,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            /**
+                           * [MemoDatabase title]
+                           */
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    memo.title!,
+                                    style: TextStyle(
+                                      color: listViewTitleColor,
+                                      fontFamily: nanumMyeongjo,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            /**
+                           * [MemoDatabase content]
+                           */
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    memo.content!,
+                                    style: TextStyle(
+                                      color: listContentTitleColor,
+                                      fontFamily: nanumMyeongjo,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            // ** 수정버튼 구현 **
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                '수정',
+                                style: TextStyle(
+                                  color: logoColor,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                deleteMemo(memo.id);
+                              },
+                              child: Text(
+                                '삭제',
+                                style: TextStyle(
+                                  color: maintextColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.height / 30,
+                  ),
                 ],
               );
             },
@@ -112,7 +244,6 @@ class _MoodMemoListState extends State<MoodMemoList> {
     // 그 외에 provider 접근.
     print('memolist');
     // Future<List<Memo>>
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: mainbackgroundColor,
       appBar: AppBar(

@@ -47,6 +47,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: appbarColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
 
@@ -74,7 +75,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
               Text(
                 '성공적으로 저장했습니다.',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: maintextColor,
                   fontSize: subTextSize,
                 ),
               ),

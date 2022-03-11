@@ -12,3 +12,5 @@ Color appbarColor = const Color.fromRGBO(98, 77, 77, 100);
 Color subtextColor = const Color.fromRGBO(189, 189, 189, 100);
 Color maintextColor = Colors.white;
 Color contentTextColor = const Color.fromRGBO(255, 244, 244, 100);
+Color listViewTitleColor = const Color.fromRGBO(255, 231, 144, 100);
+Color listContentTitleColor = const Color.fromRGBO(255, 210, 210, 100);
