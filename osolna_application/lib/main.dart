@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
  * HappyProvider, LoveProvider, ConsolationProvider, SadnessProvider, AngryProvider
  */
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(
