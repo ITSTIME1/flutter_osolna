@@ -25,6 +25,7 @@ class MainMemoScreen extends StatefulWidget {
 
 class _MainMemoScreenState extends State<MainMemoScreen> {
   dynamic memo;
+  var currentFocus;
   final title = TextEditingController();
   final content = TextEditingController();
 
@@ -162,14 +163,20 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     }
   }
 
+  unfocus() {
+    currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print('MainMemoScreen');
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
+      onTap: () => unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: mainbackgroundColor,
@@ -247,6 +254,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                             // ** InputTextColor **
 
                             TextField(
+                              maxLines: 1,
+                              maxLength: 10,
                               controller: title,
                               style: TextStyle(
                                 color: contentTextColor,
@@ -257,6 +266,9 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                               // ** Focusing State Text **
 
                               decoration: InputDecoration(
+                                counterStyle: TextStyle(
+                                  color: logoColor,
+                                ),
                                 hintText: "제목을 적어주세요",
                                 hintStyle: TextStyle(
                                   fontSize: hintTextSize,
@@ -292,8 +304,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 10.0),
                               child: ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  maxHeight: 200.0,
+                                constraints: BoxConstraints(
+                                  maxHeight: size.height / 1.7 - 113,
                                 ),
                                 child: Scrollbar(
                                   child: SingleChildScrollView(

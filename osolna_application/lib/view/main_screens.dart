@@ -348,14 +348,21 @@ class SimpleMemoScreen extends StatefulWidget {
 }
 
 class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
+  var currentFocus;
+  unfocus() {
+    currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print('SimpleMemoScreen');
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
+      onTap: () => unfocus(),
       child: SingleChildScrollView(
         child: Stack(
           children: [
@@ -364,7 +371,7 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: size.height / 15,
+                    height: size.height / 5,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -391,7 +398,7 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                     ),
                   ),
                   Container(
-                    height: size.height / 1.7,
+                    height: size.height / 3.5,
                     width: size.width / 1.2,
                     decoration: BoxDecoration(
                       color: appbarColor,
@@ -412,6 +419,8 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                           // ** InputTextColor **
 
                           TextField(
+                            maxLines: 1,
+                            maxLength: 10,
                             style: TextStyle(
                               color: contentTextColor,
                               fontFamily: nanumGothic,
@@ -421,6 +430,9 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                             // ** Focusing State Text **
 
                             decoration: InputDecoration(
+                              counterStyle: TextStyle(
+                                color: logoColor,
+                              ),
                               hintText: "제목을 적어주세요",
                               hintStyle: TextStyle(
                                 fontSize: hintTextSize,
@@ -456,20 +468,21 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                           Padding(
                             padding: const EdgeInsets.only(top: 10.0),
                             child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxHeight: 200.0,
+                              constraints: BoxConstraints(
+                                maxHeight: size.height / 3.5 - 113,
                               ),
                               child: Scrollbar(
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.vertical,
                                   reverse: false,
                                   child: TextField(
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 100,
                                     style: TextStyle(
                                       color: contentTextColor,
                                       fontFamily: nanumGothic,
                                       fontSize: titleTextColor,
                                     ),
-                                    maxLines: 100,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: '마음을 내려놓고 편하게 써봐요',

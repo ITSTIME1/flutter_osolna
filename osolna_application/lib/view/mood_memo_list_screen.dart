@@ -188,6 +188,16 @@ class _MoodMemoListState extends State<MoodMemoList> {
                 CircularProgressIndicator(
                   color: logoColor,
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Text(
+                    '작성된 내용이 없어요!',
+                    style: TextStyle(
+                      color: listContentTitleColor,
+                      fontFamily: nanumMyeongjo,
+                    ),
+                  ),
+                ),
               ],
             ),
           );

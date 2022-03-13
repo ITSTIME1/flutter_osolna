@@ -34,10 +34,10 @@ void main() {
 
 // ignore: slash_for_doc_comments
 /**
- * [MyApp] import [SplashScreen] and [MoodSelectScreen]
- * this page need to do branching
- * I used futurebuilder
- * By using futurebuilder we can use connectionstate 
+ * [MyApp] import [SplashScreen] and [MainScreen]
+ * This page need to do branching
+ * I used Futurebuilder
+ * By using Futurebuilder we can use connectionstate 
  */
 
 class MyApp extends StatelessWidget {
