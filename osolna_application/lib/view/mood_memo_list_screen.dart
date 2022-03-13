@@ -104,6 +104,73 @@ class _MoodMemoListState extends State<MoodMemoList> {
 
   // ignore: slash_for_doc_comments
   /**
+   * [MoodMemos When pressed '삭제' button show dialog Alert]
+   */
+  Future<void> showDeleteDialog(memo) async {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext showContext) {
+        return AlertDialog(
+          backgroundColor: appbarColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          title: Text(
+            '정말로 삭제하시겠습니까?',
+            style: TextStyle(
+              color: logoColor,
+              fontFamily: nanumMyeongjo,
+              fontSize: iconSize,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text(
+                  '한번 삭제하면 영원히 삭제 됩니다.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: nanumGothic,
+                    fontSize: titleTextColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(showContext).pop();
+              },
+              child: const Text(
+                '취소',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                deleteMemo(memo.id);
+                Navigator.of(showContext).pop();
+              },
+              child: Text(
+                '삭제',
+                style: TextStyle(
+                  color: logoColor,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
    * [ListView Widget] This Widget is only shown loadMemo() interface
    */
 
@@ -226,13 +293,13 @@ class _MoodMemoListState extends State<MoodMemoList> {
                               ),
                             ),
                             TextButton(
-                              onPressed: () => deleteMemo(memo.id),
                               child: Text(
                                 '삭제',
                                 style: TextStyle(
                                   color: maintextColor,
                                 ),
                               ),
+                              onPressed: () => showDeleteDialog(memo),
                             ),
                           ],
                         ),
