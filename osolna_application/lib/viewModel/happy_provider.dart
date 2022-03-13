@@ -65,7 +65,7 @@ class HappyDatabaseProvider extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
-   * [HappyDatabase getAllData] This Method is used for ListViewBuilder.
+   * [HappyDatabase getAllData] This Method show _tableName mood memo list.
    */
 
   Future<List<Memo>> getHappyMemos() async {
