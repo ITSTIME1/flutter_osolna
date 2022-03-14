@@ -351,12 +351,93 @@ class SimpleMemoScreen extends StatefulWidget {
 }
 
 class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
+  dynamic memo;
+  SimpleMemoDatabaseProvider? _simpleProvider;
+  final simpleTitle = TextEditingController();
+  final simpleContent = TextEditingController();
+
+  // ignore: slash_for_doc_comments
+  /**
+   * [Initialize Provider]
+   */
+  @override
+  void initState() {
+    _simpleProvider =
+        Provider.of<SimpleMemoDatabaseProvider>(context, listen: false);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _simpleProvider;
+    super.dispose();
+  }
+
   unfocus() {
     var currentFocus = FocusScope.of(context);
 
     if (!currentFocus.hasPrimaryFocus) {
       currentFocus.unfocus();
     }
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
+   * [MoodMemoComplete]
+   */
+  void moodMemoComplete() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: appbarColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+
+          // ** Dialog Main Title **
+
+          title: Column(
+            children: [
+              Text(
+                '간단저장소',
+                style: TextStyle(
+                  color: logoColor,
+                  fontFamily: nanumMyeongjo,
+                  fontSize: hintTextSize,
+                ),
+              ),
+            ],
+          ),
+
+          // ** Dialog Sub Title **
+
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '성공적으로 저장했습니다.',
+                style: TextStyle(
+                  color: maintextColor,
+                  fontSize: subTextSize,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> simpleSaveMemoButton() async {
+    await _simpleProvider!.insertMemo(
+      memo = Memo(
+        title: simpleTitle.text,
+        content: simpleContent.text,
+        dateTime: DateTime.now().toString(),
+      ),
+    );
+    moodMemoComplete();
   }
 
   @override
@@ -390,11 +471,7 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                               fontFamily: nanumMyeongjo,
                             ),
                           ),
-                          onPressed: () {
-                            /**
-                             * SimpleMemo Database insert
-                             */
-                          },
+                          onPressed: () async => simpleSaveMemoButton(),
                         ),
                       ],
                     ),
@@ -423,6 +500,7 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                           TextField(
                             maxLines: 1,
                             maxLength: 10,
+                            controller: simpleTitle,
                             style: TextStyle(
                               color: contentTextColor,
                               fontFamily: nanumGothic,
@@ -478,6 +556,7 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                                   scrollDirection: Axis.vertical,
                                   reverse: false,
                                   child: TextField(
+                                    controller: simpleContent,
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 100,
                                     style: TextStyle(
@@ -545,7 +624,7 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
     return await _simpleProvider!.getSimpleMemos();
   }
 
-  Future<void> deleteMemo(int id) async {
+  Future<void> deleteSimpleMemo(int id) async {
     return await _simpleProvider!.deleteMemo(id);
   }
 
@@ -596,7 +675,7 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
             ),
             TextButton(
               onPressed: () {
-                deleteMemo(memo.id);
+                deleteSimpleMemo(memo.id);
                 Navigator.of(showContext).pop();
               },
               child: Text(
@@ -769,17 +848,12 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Consumer<SimpleMemoDatabaseProvider>(
-          builder: (BuildContext context, value, Widget? child) {
-            return Container(
-              child: simpleMemoListView(),
-            );
-          },
-        ),
-      ],
+    return Consumer<SimpleMemoDatabaseProvider>(
+      builder: (BuildContext context, value, Widget? child) {
+        return Container(
+          child: simpleMemoListView(),
+        );
+      },
     );
   }
 }

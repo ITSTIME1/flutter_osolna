@@ -65,7 +65,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   /**
    * [MoodShowDialog Method] This Method can show AlertDialog when you success the save button
    */
-  void moodMemoCompelete() {
+  void moodMemoComplete() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -123,7 +123,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
         ),
       );
 
-      moodMemoCompelete();
+      moodMemoComplete();
     } else if (widget.moodText == '사랑') {
       await _loveProvider!.insertMemo(
         memo = Memo(
@@ -132,7 +132,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           dateTime: DateTime.now().toString(),
         ),
       );
-      moodMemoCompelete();
+      moodMemoComplete();
     } else if (widget.moodText == '위로') {
       await _consolationProvider!.insertMemo(
         memo = Memo(
@@ -141,7 +141,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           dateTime: DateTime.now().toString(),
         ),
       );
-      moodMemoCompelete();
+      moodMemoComplete();
     } else if (widget.moodText == '슬픔') {
       await _sadnessProvider!.insertMemo(
         memo = Memo(
@@ -150,7 +150,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           dateTime: DateTime.now().toString(),
         ),
       );
-      moodMemoCompelete();
+      moodMemoComplete();
     } else if (widget.moodText == '화남') {
       await _angryProvider!.insertMemo(
         memo = Memo(
@@ -159,7 +159,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           dateTime: DateTime.now().toString(),
         ),
       );
-      moodMemoCompelete();
+      moodMemoComplete();
     }
   }
 
