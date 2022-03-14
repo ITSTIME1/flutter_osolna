@@ -113,7 +113,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   /**
    * [MoodSaveButton Method] This Method can save wrote memo
    */
-  void saveMemoButton() async {
+  Future<void> saveMemoButton() async {
     if (widget.moodText == '행복') {
       await _happyProvider!.insertMemo(
         memo = Memo(
@@ -164,7 +164,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   }
 
   unfocus() {
-    currentFocus = FocusScope.of(context);
+    var currentFocus = FocusScope.of(context);
 
     if (!currentFocus.hasPrimaryFocus) {
       currentFocus.unfocus();
@@ -175,40 +175,40 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   Widget build(BuildContext context) {
     print('MainMemoScreen');
     Size size = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: () => unfocus(),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: mainbackgroundColor,
-        appBar: AppBar(
-          toolbarHeight: 70.0,
-          backgroundColor: appbarColor,
-          centerTitle: true,
-          title: Text(
-            '오솔나',
-            style: TextStyle(
-              color: logoColor,
-              fontFamily: nanumMyeongjo,
-              fontSize: appbarFontSize,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: mainbackgroundColor,
+      appBar: AppBar(
+        toolbarHeight: 70.0,
+        backgroundColor: appbarColor,
+        centerTitle: true,
+        title: Text(
+          '오솔나',
+          style: TextStyle(
+            color: logoColor,
+            fontFamily: nanumMyeongjo,
+            fontSize: appbarFontSize,
+          ),
+        ),
+
+        // ** Memo Save Button **
+
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 30.0),
+            child: IconButton(
+              icon: const Icon(
+                Icons.article_outlined,
+                size: 25.0,
+              ),
+              onPressed: () async => saveMemoButton(),
             ),
           ),
-
-          // ** Memo Save Button **
-
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 30.0),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.article_outlined,
-                  size: 25.0,
-                ),
-                onPressed: () async => saveMemoButton(),
-              ),
-            ),
-          ],
-        ),
-        body: SingleChildScrollView(
+        ],
+      ),
+      body: GestureDetector(
+        onTap: () => unfocus(),
+        child: SingleChildScrollView(
           child: Stack(
             children: [
               Center(

@@ -7,6 +7,7 @@ import 'package:osolna_application/viewModel/consolation_provider.dart';
 import 'package:osolna_application/viewModel/happy_provider.dart';
 import 'package:osolna_application/viewModel/love_provider.dart';
 import 'package:osolna_application/viewModel/sadness_provider.dart';
+import 'package:osolna_application/viewModel/simple_provider.dart';
 import 'package:provider/provider.dart';
 
 // ignore: slash_for_doc_comments
@@ -28,6 +29,8 @@ void main() {
           create: (BuildContext context) => SadnessDatabaseProvider()),
       ChangeNotifierProvider(
           create: (BuildContext context) => AngryDatabaseProvider()),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => SimpleMemoDatabaseProvider()),
     ], child: const MyApp()),
   );
 }
