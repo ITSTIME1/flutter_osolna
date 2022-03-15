@@ -65,6 +65,48 @@ class AngryDatabaseProvider extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
+   * [AngryDatabase Modify Memo] This Method changes that memo you wrote.
+   */
+  Future<void> updateAngryMemo(Memo memo) async {
+    final hd = await angryDatabase;
+
+    await hd.update(
+      _tableName,
+      memo.toMap(),
+      where: 'id = ?',
+      whereArgs: [memo.id],
+    );
+    notifyListeners();
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
+   * [AngryDatabase Find Memo id]
+   */
+  Future<List<Memo>> findMemos(int id) async {
+    final hd = await angryDatabase;
+
+    final List<Map<String, dynamic>> angryFind = await hd.query(
+      _tableName,
+      where: "id = ?",
+      whereArgs: [id],
+    );
+    notifyListeners();
+    return List.generate(
+      angryFind.length,
+      (index) {
+        return Memo(
+          id: angryFind[index]['id'],
+          title: angryFind[index]['title'],
+          content: angryFind[index]['content'],
+          dateTime: angryFind[index]['dateTime'],
+        );
+      },
+    );
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
    * [AngryDatabase getAllData] This Method is used for ListViewBuilder.
    */
 

@@ -60,6 +60,22 @@ class SadnessDatabaseProvider extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
+   * [SadnessDatabase Modify Memo] This Method changes that memo you wrote.
+   */
+  Future<void> updateSadnessMemo(Memo memo) async {
+    final hd = await sadnessDatabase;
+
+    await hd.update(
+      _tableName,
+      memo.toMap(),
+      where: 'id = ?',
+      whereArgs: [memo.id],
+    );
+    notifyListeners();
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
    * [SadnessDatabase getALlData]
    */
 
@@ -75,6 +91,28 @@ class SadnessDatabaseProvider extends ChangeNotifier {
           title: sadnessMaps[index]['title'],
           content: sadnessMaps[index]['content'],
           dateTime: sadnessMaps[index]['dateTime'],
+        );
+      },
+    );
+  }
+
+  Future<List<Memo>> findMemos(int id) async {
+    final hd = await sadnessDatabase;
+
+    final List<Map<String, dynamic>> sadNessFind = await hd.query(
+      _tableName,
+      where: "id = ?",
+      whereArgs: [id],
+    );
+    notifyListeners();
+    return List.generate(
+      sadNessFind.length,
+      (index) {
+        return Memo(
+          id: sadNessFind[index]['id'],
+          title: sadNessFind[index]['title'],
+          content: sadNessFind[index]['content'],
+          dateTime: sadNessFind[index]['dateTime'],
         );
       },
     );

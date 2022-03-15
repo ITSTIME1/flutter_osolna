@@ -65,6 +65,23 @@ class ConsolationDatabaseProvider extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
+   * [ConsolationDatabase Modify Memo] This Method changes that memo you wrote.
+   */
+
+  Future<void> updateConsolationMemo(Memo memo) async {
+    final hd = await consolationDatabase;
+
+    await hd.update(
+      _tableName,
+      memo.toMap(),
+      where: 'id = ?',
+      whereArgs: [memo.id],
+    );
+    notifyListeners();
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
    * [ConsolationDatabase getAllData] This Method is used for ListViewBuilder.
    */
 
@@ -81,6 +98,28 @@ class ConsolationDatabaseProvider extends ChangeNotifier {
           title: consolationMaps[index]['title'],
           content: consolationMaps[index]['content'],
           dateTime: consolationMaps[index]['dateTime'],
+        );
+      },
+    );
+  }
+
+  Future<List<Memo>> findMemos(int id) async {
+    final hd = await consolationDatabase;
+
+    final List<Map<String, dynamic>> consolationFind = await hd.query(
+      _tableName,
+      where: "id = ?",
+      whereArgs: [id],
+    );
+    notifyListeners();
+    return List.generate(
+      consolationFind.length,
+      (index) {
+        return Memo(
+          id: consolationFind[index]['id'],
+          title: consolationFind[index]['title'],
+          content: consolationFind[index]['content'],
+          dateTime: consolationFind[index]['dateTime'],
         );
       },
     );

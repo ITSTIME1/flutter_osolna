@@ -60,6 +60,22 @@ class SimpleMemoDatabaseProvider extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
+   * [SimpleDatabase Modify Memo] This Method changes that memo you wrote.
+   */
+  Future<void> updateSimpleMemo(Memo memo) async {
+    final hd = await simpleMemoDatabase;
+
+    await hd.update(
+      _tableName,
+      memo.toMap(),
+      where: 'id = ?',
+      whereArgs: [memo.id],
+    );
+    notifyListeners();
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
    * [SimpleMemoDatabase getALlData]
    */
 
@@ -75,6 +91,28 @@ class SimpleMemoDatabaseProvider extends ChangeNotifier {
           title: simpleMaps[index]['title'],
           content: simpleMaps[index]['content'],
           dateTime: simpleMaps[index]['dateTime'],
+        );
+      },
+    );
+  }
+
+  Future<List<Memo>> findMemos(String id) async {
+    final hd = await simpleMemoDatabase;
+
+    final List<Map<String, dynamic>> simpleFind = await hd.query(
+      _tableName,
+      where: "id = ?",
+      whereArgs: [id],
+    );
+    notifyListeners();
+    return List.generate(
+      simpleFind.length,
+      (index) {
+        return Memo(
+          id: simpleFind[index]['id'],
+          title: simpleFind[index]['title'],
+          content: simpleFind[index]['content'],
+          dateTime: simpleFind[index]['dateTime'],
         );
       },
     );

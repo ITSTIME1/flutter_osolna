@@ -25,7 +25,6 @@ class MainMemoScreen extends StatefulWidget {
 
 class _MainMemoScreenState extends State<MainMemoScreen> {
   dynamic memo;
-  var currentFocus;
   final title = TextEditingController();
   final content = TextEditingController();
 
@@ -163,7 +162,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     }
   }
 
-  unfocus() {
+  void unfocus() {
     var currentFocus = FocusScope.of(context);
 
     if (!currentFocus.hasPrimaryFocus) {

@@ -60,6 +60,23 @@ class LoveDatabaseProvider extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
+   * [LoveDatabase Modify Memo] This Method changes that memo you wrote.
+   */
+  Future<void> updateLoveMemo(Memo memo) async {
+    final hd = await loveDatabase;
+
+    await hd.update(
+      _tableName,
+      memo.toMap(),
+      where: 'id = ?',
+      whereArgs: [memo.id],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    notifyListeners();
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
    * [LoveDatabase getALlData]
    */
 
@@ -75,6 +92,28 @@ class LoveDatabaseProvider extends ChangeNotifier {
           title: loveMaps[index]['title'],
           content: loveMaps[index]['content'],
           dateTime: loveMaps[index]['dateTime'],
+        );
+      },
+    );
+  }
+
+  Future<List<Memo>> findMemos(int id) async {
+    final hd = await loveDatabase;
+
+    final List<Map<String, dynamic>> loveFind = await hd.query(
+      _tableName,
+      where: "id = ?",
+      whereArgs: [id],
+    );
+    notifyListeners();
+    return List.generate(
+      loveFind.length,
+      (index) {
+        return Memo(
+          id: loveFind[index]['id'],
+          title: loveFind[index]['title'],
+          content: loveFind[index]['content'],
+          dateTime: loveFind[index]['dateTime'],
         );
       },
     );

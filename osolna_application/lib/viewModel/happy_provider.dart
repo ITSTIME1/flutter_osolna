@@ -65,6 +65,22 @@ class HappyDatabaseProvider extends ChangeNotifier {
 
   // ignore: slash_for_doc_comments
   /**
+   * [HappyDatabase Modify Memo]
+   */
+  Future<void> updateHappyMemo(Memo memo) async {
+    final hd = await happyDatabase;
+
+    await hd.update(
+      _tableName,
+      memo.toMap(),
+      where: 'id = ?',
+      whereArgs: [memo.id],
+    );
+    notifyListeners();
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
    * [HappyDatabase getAllData] This Method show _tableName mood memo list.
    */
 
@@ -80,6 +96,28 @@ class HappyDatabaseProvider extends ChangeNotifier {
           title: happyMaps[index]['title'],
           content: happyMaps[index]['content'],
           dateTime: happyMaps[index]['dateTime'],
+        );
+      },
+    );
+  }
+
+  Future<List<Memo>> findMemos(int id) async {
+    final hd = await happyDatabase;
+
+    final List<Map<String, dynamic>> happyFind = await hd.query(
+      _tableName,
+      where: "id = ?",
+      whereArgs: [id],
+    );
+    notifyListeners();
+    return List.generate(
+      happyFind.length,
+      (index) {
+        return Memo(
+          id: happyFind[index]['id'],
+          title: happyFind[index]['title'],
+          content: happyFind[index]['content'],
+          dateTime: happyFind[index]['dateTime'],
         );
       },
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/textData/text.dart';
+import 'package:osolna_application/view/eidt_screen.dart';
 import 'package:osolna_application/view/view_screen.dart';
 import 'package:osolna_application/viewModel/angry_provider.dart';
 import 'package:osolna_application/viewModel/consolation_provider.dart';
@@ -20,6 +21,7 @@ import 'package:provider/provider.dart';
 
 class MoodMemoList extends StatefulWidget {
   final String selectTitle;
+
   const MoodMemoList({
     Key? key,
     required this.selectTitle,
@@ -228,7 +230,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
               /**
                * [Memo List Value]
                */
-              var memo = (snap.data as List)[index];
+              dynamic memo = (snap.data as List)[index];
               return Column(
                 children: [
                   Stack(
@@ -259,7 +261,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        memo.dateTime!,
+                                        memo.dateTime.toString(),
                                         style: TextStyle(
                                           color: maintextColor,
                                           fontFamily: nanumMyeongjo,
@@ -319,7 +321,20 @@ class _MoodMemoListState extends State<MoodMemoList> {
                           children: [
                             // ** 수정버튼 구현 **
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        EditMemoScreen(
+                                      moodTitle: widget.selectTitle,
+                                      id: memo.id,
+                                      title: memo.title,
+                                      content: memo.content,
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Text(
                                 '수정',
                                 style: TextStyle(
