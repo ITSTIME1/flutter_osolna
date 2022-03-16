@@ -30,7 +30,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [Providers] can access the provider
+   * [Providers] This variable is that it is access global section.
    */
   HappyDatabaseProvider? _happyProvider;
   LoveDatabaseProvider? _loveProvider;
@@ -64,7 +64,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   /**
    * [MoodShowDialog Method] This Method can show AlertDialog when you success the save button
    */
-  void moodMemoComplete() {
+  void moodMemoShowDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -122,7 +122,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
         ),
       );
 
-      moodMemoComplete();
+      moodMemoShowDialog();
     } else if (widget.moodText == '사랑') {
       await _loveProvider!.insertMemo(
         memo = Memo(
@@ -131,7 +131,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           dateTime: DateTime.now().toString(),
         ),
       );
-      moodMemoComplete();
+      moodMemoShowDialog();
     } else if (widget.moodText == '위로') {
       await _consolationProvider!.insertMemo(
         memo = Memo(
@@ -140,7 +140,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           dateTime: DateTime.now().toString(),
         ),
       );
-      moodMemoComplete();
+      moodMemoShowDialog();
     } else if (widget.moodText == '슬픔') {
       await _sadnessProvider!.insertMemo(
         memo = Memo(
@@ -149,7 +149,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           dateTime: DateTime.now().toString(),
         ),
       );
-      moodMemoComplete();
+      moodMemoShowDialog();
     } else if (widget.moodText == '화남') {
       await _angryProvider!.insertMemo(
         memo = Memo(
@@ -158,7 +158,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           dateTime: DateTime.now().toString(),
         ),
       );
-      moodMemoComplete();
+      moodMemoShowDialog();
     }
   }
 
@@ -239,7 +239,6 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       padding: const EdgeInsets.all(10.0),
-                      // 제약조건
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
                           maxHeight: 200.0,

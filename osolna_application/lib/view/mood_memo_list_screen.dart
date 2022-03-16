@@ -328,6 +328,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
                                     builder: (BuildContext context) =>
                                         EditMemoScreen(
                                       moodTitle: widget.selectTitle,
+                                      dateTime: memo.dateTime,
                                       id: memo.id,
                                       title: memo.title,
                                       content: memo.content,

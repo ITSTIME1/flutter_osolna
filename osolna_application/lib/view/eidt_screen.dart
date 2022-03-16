@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 /**
  * [EditMemoScreen] This Screen is shown you want to change memo
  */
+// ignore: must_be_immutable
 class EditMemoScreen extends StatefulWidget {
   // ignore: slash_for_doc_comments
   /**
@@ -22,12 +23,14 @@ class EditMemoScreen extends StatefulWidget {
   String content;
   final dynamic id;
   final String moodTitle;
+  dynamic dateTime;
   EditMemoScreen({
     Key? key,
     required this.moodTitle,
     required this.id,
     required this.title,
     required this.content,
+    required this.dateTime,
   }) : super(key: key);
 
   @override
@@ -72,6 +75,62 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
     super.dispose();
   }
 
+  void unfocus() {
+    var currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
+   * [MoodMemoModifyDialog]
+   */
+  void moodMemoModifyDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: appbarColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+
+          // ** Modify Method Main Text Dialog **
+
+          title: Column(
+            children: [
+              Text(
+                '수정이 완료되었습니다',
+                style: TextStyle(
+                  color: logoColor,
+                  fontFamily: nanumMyeongjo,
+                  fontSize: hintTextSize,
+                ),
+              ),
+            ],
+          ),
+
+          // ** Modify Method Sub Text Title **
+
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '성공적으로 수정했습니다.',
+                style: TextStyle(
+                  color: maintextColor,
+                  fontSize: subTextSize,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   // ignore: slash_for_doc_comments
   /**
    * [FindMemo Method] This Method is load method that's means it is for FutureBuilder
@@ -94,47 +153,56 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [MoodMemo Modify Method]
+   * [MoodMemo Modify Method] This Method is that when you pressed '수정하기' occur this method
    */
   Future<void> updateMemo(memo) async {
     if (widget.moodTitle == '행복') {
-      return await _happyProvider!.updateHappyMemo(
+      await _happyProvider!.updateHappyMemo(
         memo = Memo(
           id: widget.id,
           title: widget.title.toString(),
           content: widget.content.toString(),
+          dateTime: DateTime.now().toString(),
         ),
       );
+      moodMemoModifyDialog();
     } else if (widget.moodTitle == '사랑') {
-      return await _loveProvider!.updateLoveMemo(
+      await _loveProvider!.updateLoveMemo(
         memo = Memo(
           id: widget.id,
           title: widget.title.toString(),
           content: widget.content.toString(),
+          dateTime: DateTime.now().toString(),
         ),
       );
+      moodMemoModifyDialog();
     } else if (widget.moodTitle == '위로') {
-      return await _consolationProvider!.updateConsolationMemo(
+      await _consolationProvider!.updateConsolationMemo(
         memo = Memo(
           id: widget.id,
           title: widget.title.toString(),
           content: widget.content.toString(),
+          dateTime: DateTime.now().toString(),
         ),
       );
+      moodMemoModifyDialog();
     } else if (widget.moodTitle == '슬픔') {
-      return await _sadnessProvider!.updateSadnessMemo(
+      await _sadnessProvider!.updateSadnessMemo(
         memo = Memo(
           id: widget.id,
           title: widget.title.toString(),
           content: widget.content.toString(),
+          dateTime: DateTime.now().toString(),
         ),
       );
+      moodMemoModifyDialog();
     } else if (widget.moodTitle == '화남') {
-      return await _angryProvider!.updateAngryMemo(
+      await _angryProvider!.updateAngryMemo(
         memo = Memo(
           id: widget.id,
           title: widget.title.toString(),
           content: widget.content.toString(),
+          dateTime: DateTime.now().toString(),
         ),
       );
     }
@@ -162,159 +230,161 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
           editTitle.text = widgetEditText;
           editContent.text = widgetEditContent;
 
-          return Stack(
-            children: [
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: size.height / 35,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 30.0,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () async => updateMemo(memo),
-                            child: Text(
-                              '수정하기 ',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: nanumMyeongjo,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: size.height / 1.7,
-                      width: size.width / 1.2,
-                      decoration: BoxDecoration(
-                        color: appbarColor,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      padding: const EdgeInsets.all(10.0),
-                      // 제약조건
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          maxHeight: 200.0,
+          return GestureDetector(
+            onTap: () => unfocus(),
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: size.height / 10,
                         ),
-                        child: Column(
-                          children: [
-                            /**
-                             * [Title TextField]
-                             */
-
-                            // ** InputTextColor **
-
-                            TextField(
-                              onChanged: (value) {
-                                widget.title = value;
-                              },
-                              maxLines: 1,
-                              maxLength: 10,
-                              controller: editTitle,
-                              style: TextStyle(
-                                color: contentTextColor,
-                                fontFamily: nanumGothic,
-                                fontSize: titleTextColor,
-                              ),
-
-                              // ** Focusing State Text **
-
-                              decoration: InputDecoration(
-                                counterStyle: TextStyle(
-                                  color: logoColor,
-                                ),
-                                hintText: "제목을 적어주세요",
-                                hintStyle: TextStyle(
-                                  fontSize: hintTextSize,
-                                  fontFamily: nanumMyeongjo,
-                                  color: Colors.grey,
-                                ),
-
-                                // ** Static State Text **
-
-                                labelText: "오늘은 어땠어?",
-                                labelStyle: TextStyle(
-                                  fontSize: hintTextSize,
-                                  color: Colors.white,
-                                  fontFamily: nanumMyeongjo,
-                                ),
-
-                                // ** Not Focusing State **
-
-                                enabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-
-                                // ** Focusing State **
-
-                                focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.cyan),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            right: 30.0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () async => updateMemo(memo),
+                                child: Text(
+                                  '수정하기 ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: nanumMyeongjo,
+                                  ),
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: size.height / 1.7,
+                          width: size.width / 1.2,
+                          decoration: BoxDecoration(
+                            color: appbarColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          padding: const EdgeInsets.all(10.0),
+                          // 제약조건
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxHeight: 200.0,
                             ),
-                            /**
-                             * [Content TextField]
-                             */
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  maxHeight: size.height / 1.7 - 113,
+                            child: Column(
+                              children: [
+                                /**
+                                 * [Title TextField]
+                                 */
+
+                                // ** InputTextColor **
+
+                                TextField(
+                                  onChanged: (value) {
+                                    widget.title = value;
+                                  },
+                                  maxLines: 1,
+                                  maxLength: 10,
+                                  controller: editTitle,
+                                  style: TextStyle(
+                                    color: contentTextColor,
+                                    fontFamily: nanumGothic,
+                                    fontSize: titleTextColor,
+                                  ),
+
+                                  // ** Focusing State Text **
+
+                                  decoration: InputDecoration(
+                                    counterStyle: TextStyle(
+                                      color: logoColor,
+                                    ),
+                                    hintText: "제목을 적어주세요",
+                                    hintStyle: TextStyle(
+                                      fontSize: hintTextSize,
+                                      fontFamily: nanumMyeongjo,
+                                      color: Colors.grey,
+                                    ),
+
+                                    // ** Static State Text **
+
+                                    labelText: "오늘은 어땠어?",
+                                    labelStyle: TextStyle(
+                                      fontSize: hintTextSize,
+                                      color: Colors.white,
+                                      fontFamily: nanumMyeongjo,
+                                    ),
+
+                                    // ** Not Focusing State **
+
+                                    enabledBorder: const UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white),
+                                    ),
+
+                                    // ** Focusing State **
+
+                                    focusedBorder: const UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.cyan),
+                                    ),
+                                  ),
                                 ),
-                                child: Scrollbar(
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.vertical,
-                                    reverse: false,
-                                    child: TextField(
-                                      controller: editContent,
-                                      style: TextStyle(
-                                        color: contentTextColor,
-                                        fontFamily: nanumGothic,
-                                        fontSize: titleTextColor,
-                                      ),
-                                      maxLines: 100,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: '천천히 생각해봐요',
-                                        hintStyle: TextStyle(
-                                          fontSize: hintTextSize,
-                                          fontFamily: nanumMyeongjo,
-                                          color: Colors.grey,
+                                /**
+                                 * [Content TextField]
+                                 */
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      maxHeight: size.height / 1.7 - 113,
+                                    ),
+                                    child: Scrollbar(
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.vertical,
+                                        reverse: false,
+                                        child: TextField(
+                                          onChanged: (value) {
+                                            widget.content = value;
+                                          },
+                                          controller: editContent,
+                                          style: TextStyle(
+                                            color: contentTextColor,
+                                            fontFamily: nanumGothic,
+                                            fontSize: titleTextColor,
+                                          ),
+                                          maxLines: 100,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: '천천히 생각해봐요',
+                                            hintStyle: TextStyle(
+                                              fontSize: hintTextSize,
+                                              fontFamily: nanumMyeongjo,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           );
         }
       },
     );
-  }
-
-  void unfocus() {
-    var currentFocus = FocusScope.of(context);
-
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
   }
 
   @override
