@@ -6,6 +6,7 @@ import 'package:osolna_application/slideData/sliding_data.dart';
 import 'package:osolna_application/textData/text.dart';
 import 'package:osolna_application/view/main_memo_screen.dart';
 import 'package:osolna_application/view/mood_memo_list_screen.dart';
+import 'package:osolna_application/view/view_screen.dart';
 import 'package:osolna_application/viewModel/simple_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -620,6 +621,25 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
     super.dispose();
   }
 
+  // ignore: slash_for_doc_comments
+  /**
+   * [SimpleMemo ViewMemo Navigator Method]
+   */
+  Future<void> viewMemo(simplememo) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => ViewMemoScreen(
+          moodTitle: '간단메모',
+          id: simplememo.id.toString(),
+          dateTime: simplememo.dateTime,
+          title: simplememo.title,
+          content: simplememo.content,
+        ),
+      ),
+    );
+  }
+
   Future<List<Memo>> simpleLoadMemo() async {
     return await _simpleProvider!.getSimpleMemos();
   }
@@ -731,30 +751,52 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
                 children: [
                   Stack(
                     children: [
-                      Container(
-                        height: size.height / 8,
-                        decoration: BoxDecoration(
-                          color: appbarColor,
-                          border: Border.all(
-                            color: logoColor,
+                      GestureDetector(
+                        onDoubleTap: () async => viewMemo(simplememo),
+                        child: Container(
+                          height: size.height / 8,
+                          decoration: BoxDecoration(
+                            color: appbarColor,
+                            border: Border.all(
+                              color: logoColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            /**
-                           * [MemoDatabase DateTime]
-                           */
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Row(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              /**
+                             * [MemoDatabase DateTime]
+                             */
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        simplememo.dateTime.toString(),
+                                        style: TextStyle(
+                                          color: maintextColor,
+                                          fontFamily: nanumMyeongjo,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              /**
+                             * [MemoDatabase title]
+                             */
+                              Row(
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      simplememo.dateTime!,
+                                      simplememo.title!,
                                       style: TextStyle(
-                                        color: maintextColor,
+                                        color: listViewTitleColor,
                                         fontFamily: nanumMyeongjo,
                                       ),
                                       maxLines: 1,
@@ -763,45 +805,26 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
                                   ),
                                 ],
                               ),
-                            ),
-
-                            /**
-                           * [MemoDatabase title]
-                           */
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    simplememo.title!,
-                                    style: TextStyle(
-                                      color: listViewTitleColor,
-                                      fontFamily: nanumMyeongjo,
+                              /**
+                             * [MemoDatabase content]
+                             */
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      simplememo.content!,
+                                      style: TextStyle(
+                                        color: listContentTitleColor,
+                                        fontFamily: nanumMyeongjo,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                              ],
-                            ),
-                            /**
-                           * [MemoDatabase content]
-                           */
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    simplememo.content!,
-                                    style: TextStyle(
-                                      color: listContentTitleColor,
-                                      fontFamily: nanumMyeongjo,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Padding(

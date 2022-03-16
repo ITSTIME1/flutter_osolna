@@ -154,6 +154,9 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
   // ignore: slash_for_doc_comments
   /**
    * [MoodMemo Modify Method] This Method is that when you pressed '수정하기' occur this method
+   * widget.title, widget.content 를 그대로 넘겨주는 이유는
+   * 1. 처음 수정하기 버튼을 클릭후 가져온 값을 보여줄때 텍스트 필드에 표시해주기 위해서
+   * 2. 수정한 내용을 그대로 다시 반영해주기 위해서.
    */
   Future<void> updateMemo(memo) async {
     if (widget.moodTitle == '행복') {
