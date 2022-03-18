@@ -62,14 +62,14 @@ class SimpleMemoDatabaseProvider extends ChangeNotifier {
   /**
    * [SimpleDatabase Modify Memo] This Method changes that memo you wrote.
    */
-  Future<void> updateSimpleMemo(Memo memo) async {
+  Future<void> updateSimpleMemo(Memo simpleMemo) async {
     final hd = await simpleMemoDatabase;
 
     await hd.update(
       _tableName,
-      memo.toMap(),
+      simpleMemo.toMap(),
       where: 'id = ?',
-      whereArgs: [memo.id],
+      whereArgs: [simpleMemo.id],
     );
     notifyListeners();
   }
@@ -96,7 +96,7 @@ class SimpleMemoDatabaseProvider extends ChangeNotifier {
     );
   }
 
-  Future<List<Memo>> findMemos(String id) async {
+  Future<List<Memo>> findSimpleMemos(int id) async {
     final hd = await simpleMemoDatabase;
 
     final List<Map<String, dynamic>> simpleFind = await hd.query(

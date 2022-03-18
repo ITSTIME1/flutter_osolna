@@ -13,7 +13,8 @@ import 'package:provider/provider.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [MoodMemoList] This page is that you written moodmemo.
+ * [MoodMemoList] 
+ * This page is that you written moodmemo.
  * It is shown in the form of listView.
  * Shown list : dateTime, moodTitle, subtitle,
  * Functions : Fixing Function, delete Function.
@@ -34,7 +35,8 @@ class MoodMemoList extends StatefulWidget {
 class _MoodMemoListState extends State<MoodMemoList> {
   // ignore: slash_for_doc_comments
   /**
-   * [Providers] can access the provider
+   * [Providers] 
+   * can access the provider
    */
   HappyDatabaseProvider? _happyProvider;
   LoveDatabaseProvider? _loveProvider;
@@ -174,7 +176,8 @@ class _MoodMemoListState extends State<MoodMemoList> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [MoodMemo ViewMemo Method] This Method is that when you selected memo list shown your select memo on ViewMemoScreen
+   * [MoodMemo ViewMemo Method] 
+   * This Method is that when you selected memo list shown your select memo on ViewMemoScreen
    */
   Future<void> viewMemo(memo) async {
     Navigator.push(
@@ -193,7 +196,8 @@ class _MoodMemoListState extends State<MoodMemoList> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [ListView Widget] This Widget is only shown loadMemo() interface
+   * [ListView Widget] 
+   * This Widget is only shown loadMemo() interface
    */
   Widget memoListView() {
     Size size = MediaQuery.of(context).size;
@@ -236,7 +240,8 @@ class _MoodMemoListState extends State<MoodMemoList> {
                   Stack(
                     children: [
                       /**
-                       * [DoubleTap Method] when you dobule tap these memo, so move on ViewMemoScreen
+                       * [DoubleTap Method] 
+                       * when you dobule tap these memo, so move on ViewMemoScreen
                        */
                       GestureDetector(
                         onDoubleTap: () async => viewMemo(memo),
@@ -400,7 +405,8 @@ class _MoodMemoListState extends State<MoodMemoList> {
         ],
       ),
       /**
-       * [MoodConsumer] This can access multiProvider
+       * [MoodConsumer] 
+       * This can access multiProvider
        * etc. happy, sad, love..
        */
       body: Consumer5<

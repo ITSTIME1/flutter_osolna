@@ -13,7 +13,8 @@ import 'package:provider/provider.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [MainMemoScreen] This page is that when after user clicked move on mood page shown
+ * [MainMemoScreen] 
+ * This page is that when after user clicked move on mood page shown
  */
 class MainMemoScreen extends StatefulWidget {
   final String? moodText;
@@ -30,7 +31,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [Providers] This variable is that it is access global section.
+   * [Providers] 
+   * This variable is that it is access global section.
    */
   HappyDatabaseProvider? _happyProvider;
   LoveDatabaseProvider? _loveProvider;
@@ -62,7 +64,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [MoodShowDialog Method] This Method can show AlertDialog when you success the save button
+   * [MoodShowDialog Method] 
+   * This Method can show AlertDialog when you success the save button
    */
   void moodMemoShowDialog() {
     showDialog(
@@ -110,7 +113,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [MoodSaveButton Method] This Method can save wrote memo
+   * [MoodSaveButton Method] 
+   * This Method can save wrote memo
    */
   Future<void> saveMemoButton() async {
     if (widget.moodText == '행복') {

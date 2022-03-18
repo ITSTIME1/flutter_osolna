@@ -4,8 +4,10 @@ import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/slideData/sliding_data.dart';
 import 'package:osolna_application/textData/text.dart';
+import 'package:osolna_application/view/eidt_screen.dart';
 import 'package:osolna_application/view/main_memo_screen.dart';
 import 'package:osolna_application/view/mood_memo_list_screen.dart';
+import 'package:osolna_application/view/simple_edit_screen.dart';
 import 'package:osolna_application/view/view_screen.dart';
 import 'package:osolna_application/viewModel/simple_provider.dart';
 import 'package:provider/provider.dart';
@@ -860,7 +862,21 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
                           children: [
                             // ** 수정버튼 구현 **
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        SimpleEditMemoScreen(
+                                      moodTitle: '간단메모',
+                                      dateTime: simplememo.dateTime,
+                                      id: simplememo.id,
+                                      title: simplememo.title,
+                                      content: simplememo.content,
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Text(
                                 '수정',
                                 style: TextStyle(

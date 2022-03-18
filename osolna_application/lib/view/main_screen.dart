@@ -5,7 +5,8 @@ import 'package:osolna_application/view/main_screens.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [MainScreen] this page using the sliding panel because that 
+ * [MainScreen] 
+ * This page using the sliding panel because that 
  * we want to choice [MoodSelectScreen], [MoodStorageScreen], [SimpleMemoScreen], [SimpleMemoStorageScreen]
  */
 
