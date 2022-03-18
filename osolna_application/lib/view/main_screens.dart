@@ -12,7 +12,8 @@ import 'package:provider/provider.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [MoodSelectScreen] This class is MoodSelectScreen
+ * [MoodSelectScreen] 
+ * This class is MoodSelectScreen
  * By using carouselSlider, You can choice today your mood card
  */
 // ignore: must_be_immutable
@@ -26,7 +27,8 @@ class MoodSelectScreen extends StatefulWidget {
 class _MoodSelectScreenState extends State<MoodSelectScreen> {
   // ignore: slash_for_doc_comments
   /**
-   * [moodSelect Method] This method receive current Index value then move that page
+   * [moodSelect Method] 
+   * This method receive current Index value then move that page
    * when you want to return the previous page MaterialPageRoute is reference the itemBuilder ctx
    * because this method don't need to MoodSelectBuild Method
    */
@@ -111,7 +113,8 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
 
 // ignore: slash_for_doc_comments
 /**
- * [MoodStorageScreen] This class is MoodMemo Storage
+ * [MoodStorageScreen] 
+ * This class is MoodMemo Storage
  * if you finished your written memo Through save button enable to show  
  */
 class MoodStorageScreen extends StatefulWidget {
@@ -127,6 +130,7 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
   // ignore: slash_for_doc_comments
   /**
    * [MoodShowSnakBar]
+   * Click to see this text below
    */
   void selectMoodStorageAlert(String? _selectTitle) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -340,7 +344,8 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
 
 // ignore: slash_for_doc_comments
 /**
- * [SimpleMemoScreen] This class is SimpleMemo Screen
+ * [SimpleMemoScreen] 
+ * This class is SimpleMemo Screen
  * The reason this page exists is because each person have different environment and time.
  * so if person want to write memo fast and shorter than mood memo, it page is fit
  */
@@ -430,6 +435,11 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
     );
   }
 
+  // ignore: slash_for_doc_comments
+  /**
+   * [SimpleSaveMemoButton Method]
+   * This is SimpleMemo Save button
+   */
   Future<void> simpleSaveMemoButton() async {
     await _simpleProvider!.insertMemo(
       memo = Memo(
@@ -595,7 +605,8 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
 
 // ignore: slash_for_doc_comments
 /**
- * [SimpleMemoStorageScreen] This class is that When you saved SimpleMemo
+ * [SimpleMemoStorageScreen] 
+ * This class is that When you saved SimpleMemo
  * you receive the saved data on this page.
  */
 class SimpleMemoStorageScreen extends StatefulWidget {
@@ -624,6 +635,7 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
   // ignore: slash_for_doc_comments
   /**
    * [SimpleMemo ViewMemo Navigator Method]
+   * This method move on ViewMemoScreen
    */
   Future<void> viewMemo(simplememo) async {
     Navigator.push(
@@ -640,14 +652,28 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
     );
   }
 
+  // ignore: slash_for_doc_comments
+  /**
+   * [SimpleMemoLoad]
+   * This method gets the contents from simple.db
+   */
   Future<List<Memo>> simpleLoadMemo() async {
     return await _simpleProvider!.getSimpleMemos();
   }
 
+  // ignore: slash_for_doc_comments
+  /**
+   * [SimpleMemoDelete Method]
+   * This method remove a content when you pressed
+   */
   Future<void> deleteSimpleMemo(int id) async {
     return await _simpleProvider!.deleteMemo(id);
   }
 
+  // ignore: slash_for_doc_comments
+  /**
+   * [SimpleMemo Show Dialog]
+   */
   Future<void> showDeleteDialog(memo) async {
     showDialog(
       barrierDismissible: false,
@@ -870,7 +896,6 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Consumer<SimpleMemoDatabaseProvider>(
       builder: (BuildContext context, value, Widget? child) {
         return Container(

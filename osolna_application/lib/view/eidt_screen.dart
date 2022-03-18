@@ -11,13 +11,15 @@ import 'package:provider/provider.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [EditMemoScreen] This Screen is shown you want to change memo
+ * [EditMemoScreen] 
+ * This Screen is shown you want to change memo
  */
 // ignore: must_be_immutable
 class EditMemoScreen extends StatefulWidget {
   // ignore: slash_for_doc_comments
   /**
-   * [Get Memo Data] This variable receive at MoodMemoStorageScreen
+   * [Get Memo Data] 
+   * This variable receive at MoodMemoStorageScreen
    */
   String title;
   String content;
@@ -74,6 +76,10 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
     _angryProvider;
     super.dispose();
   }
+  // ignore: slash_for_doc_comments
+  /**
+   * [Unfocus Method]
+   */
 
   void unfocus() {
     var currentFocus = FocusScope.of(context);
@@ -85,7 +91,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [MoodMemoModifyDialog]
+   * [MoodMemoModify Dialog Method]
    */
   void moodMemoModifyDialog() {
     showDialog(
@@ -133,7 +139,8 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [FindMemo Method] This Method is load method that's means it is for FutureBuilder
+   * [FindMemo Method] 
+   * This Method is load method that's means it is for FutureBuilder
    */
   Future<List<Memo>> findMemo(id) async {
     if (widget.moodTitle == '행복') {
@@ -153,7 +160,8 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [MoodMemo Modify Method] This Method is that when you pressed '수정하기' occur this method
+   * [MoodMemo Modify Method] 
+   * This Method is that when you pressed '수정하기' occur this method
    * widget.title, widget.content 를 그대로 넘겨주는 이유는
    * 1. 처음 수정하기 버튼을 클릭후 가져온 값을 보여줄때 텍스트 필드에 표시해주기 위해서
    * 2. 수정한 내용을 그대로 다시 반영해주기 위해서.

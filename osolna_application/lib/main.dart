@@ -12,7 +12,8 @@ import 'package:provider/provider.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [MultiProvider] The route can access various mood providers.
+ * [MultiProvider] 
+ * The route can access various mood providers.
  * HappyProvider, LoveProvider, ConsolationProvider, SadnessProvider, AngryProvider
  */
 void main() {
@@ -69,7 +70,8 @@ class MyApp extends StatelessWidget {
 
 // ignore: slash_for_doc_comments
 /**
- * [SplashScreen] this osolna main screen logo.
+ * [SplashScreen] 
+ * This osolna main screen logo.
  */
 
 class SplashScreen extends StatelessWidget {

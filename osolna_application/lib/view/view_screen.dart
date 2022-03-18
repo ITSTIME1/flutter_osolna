@@ -4,7 +4,8 @@ import 'package:osolna_application/textData/text.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [ViewMemoScreen] This screen is brings up a specific memo you wrote and shows it
+ * [ViewMemoScreen] 
+ * This screen is brings up a specific memo you wrote and shows it
  */
 class ViewMemoScreen extends StatefulWidget {
   final String id;
