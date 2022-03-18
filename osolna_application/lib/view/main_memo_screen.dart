@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
  */
 class MainMemoScreen extends StatefulWidget {
   final String moodText;
-  final Future<Uri> musicLoad;
+  final dynamic musicLoad;
   const MainMemoScreen(
       {Key? key, required this.moodText, required this.musicLoad})
       : super(key: key);
@@ -198,20 +198,41 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: size.height / 10,
+                    height: size.height / 12,
                   ),
 
                   // ** SelectMoodText **
-
+                  Text(
+                    widget.moodText,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0,
+                      fontFamily: nanumMyeongjo,
+                    ),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 14.0),
-                    child: Text(
-                      widget.moodText,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.0,
-                        fontFamily: nanumMyeongjo,
-                      ),
+                    padding: const EdgeInsets.only(
+                      bottom: 14.0,
+                      right: 30.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          width: size.width / 2,
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              _musicProvider!.playMusic(widget.musicLoad),
+                          child: Text(
+                            '음악재생',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: nanumMyeongjo,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Container(

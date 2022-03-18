@@ -38,17 +38,17 @@ class MusicProvider extends ChangeNotifier {
    * [MusicDeliver Method]
    */
 
-  Future<Uri> deliverMusic(selectMoodText) async {
+  deliverMusic(String selectMoodText) {
     if (selectMoodText == '행복') {
-      return await _audioPlayerCache.load(fileNames[0]);
+      return _audioPlayer.isLocalUrl(fileNames[0]).toString();
     } else if (selectMoodText == '사랑') {
-      return await _audioPlayerCache.load(fileNames[1]);
+      return _audioPlayer.isLocalUrl(fileNames[1]);
     } else if (selectMoodText == '위로') {
-      return await _audioPlayerCache.load(fileNames[2]);
+      return _audioPlayer.isLocalUrl(fileNames[2]);
     } else if (selectMoodText == '슬픔') {
-      return await _audioPlayerCache.load(fileNames[3]);
+      return _audioPlayer.isLocalUrl(fileNames[3]);
     } else if (selectMoodText == '화남') {
-      return await _audioPlayerCache.load(fileNames[4]);
+      return _audioPlayer.isLocalUrl(fileNames[4]);
     }
     // ignore: null_check_always_fails
     return null!;
@@ -58,8 +58,8 @@ class MusicProvider extends ChangeNotifier {
   /**
    * [MusicPlay Method]
    */
-  Future<void> playMusic(musicLoad) async {
-    await _audioPlayerCache.play(musicLoad);
+  Future<dynamic> playMusic(dynamic musicLoad) async {
+    await _audioPlayerCache.play(musicLoad.toString());
   }
 
   // ignore: slash_for_doc_comments

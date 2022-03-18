@@ -50,52 +50,49 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
   Future<void> moodSelect(index) async {
     if (MoodSelect.card[index].moodTitle == '행복') {
       final String? selectMoodText = MoodSelect.card[index].moodTitle;
-      final Future<Uri> musicDeliver =
-          _musicProvider!.deliverMusic(selectMoodText);
+      final musicDeliver =
+          _musicProvider!.deliverMusic(selectMoodText!).toString();
       print(musicDeliver);
+      // false;
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
         return MainMemoScreen(
-          moodText: selectMoodText!,
+          moodText: selectMoodText,
           musicLoad: musicDeliver,
         );
       }));
     } else if (MoodSelect.card[index].moodTitle == '사랑') {
       final String? selectMoodText = MoodSelect.card[index].moodTitle;
-      final Future<Uri> musicDeliver =
-          _musicProvider!.deliverMusic(selectMoodText);
+      final musicDeliver = _musicProvider!.deliverMusic(selectMoodText!);
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
         return MainMemoScreen(
-          moodText: selectMoodText!,
+          moodText: selectMoodText,
           musicLoad: musicDeliver,
         );
       }));
     } else if (MoodSelect.card[index].moodTitle == '위로') {
       final String? selectMoodText = MoodSelect.card[index].moodTitle;
-      final Future<Uri> musicDeliver =
-          _musicProvider!.deliverMusic(selectMoodText);
+      final musicDeliver = _musicProvider!.deliverMusic(selectMoodText!);
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
         return MainMemoScreen(
-          moodText: selectMoodText!,
+          moodText: selectMoodText,
           musicLoad: musicDeliver,
         );
       }));
     } else if (MoodSelect.card[index].moodTitle == '슬픔') {
       final String? selectMoodText = MoodSelect.card[index].moodTitle;
-      final Future<Uri> musicDeliver =
-          _musicProvider!.deliverMusic(selectMoodText);
+      final musicDeliver = _musicProvider!.deliverMusic(selectMoodText!);
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
         return MainMemoScreen(
-          moodText: selectMoodText!,
+          moodText: selectMoodText,
           musicLoad: musicDeliver,
         );
       }));
     } else if (MoodSelect.card[index].moodTitle == '화남') {
       final String? selectMoodText = MoodSelect.card[index].moodTitle;
-      final Future<Uri> musicDeliver =
-          _musicProvider!.deliverMusic(selectMoodText);
+      final musicDeliver = _musicProvider!.deliverMusic(selectMoodText!);
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
         return MainMemoScreen(
-          moodText: selectMoodText!,
+          moodText: selectMoodText,
           musicLoad: musicDeliver,
         );
       }));
