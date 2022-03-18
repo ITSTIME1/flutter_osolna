@@ -4,11 +4,11 @@ import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/slideData/sliding_data.dart';
 import 'package:osolna_application/textData/text.dart';
-import 'package:osolna_application/view/eidt_screen.dart';
 import 'package:osolna_application/view/main_memo_screen.dart';
 import 'package:osolna_application/view/mood_memo_list_screen.dart';
 import 'package:osolna_application/view/simple_edit_screen.dart';
 import 'package:osolna_application/view/view_screen.dart';
+import 'package:osolna_application/viewModel/music_provider.dart';
 import 'package:osolna_application/viewModel/simple_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +27,19 @@ class MoodSelectScreen extends StatefulWidget {
 }
 
 class _MoodSelectScreenState extends State<MoodSelectScreen> {
+  MusicProvider? _musicProvider;
+  @override
+  void initState() {
+    _musicProvider = Provider.of<MusicProvider>(context, listen: false);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _musicProvider;
+    super.dispose();
+  }
+
   // ignore: slash_for_doc_comments
   /**
    * [moodSelect Method] 
@@ -36,29 +49,55 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
    */
   Future<void> moodSelect(index) async {
     if (MoodSelect.card[index].moodTitle == '행복') {
-      final selectMoodText = MoodSelect.card[index].moodTitle;
+      final String? selectMoodText = MoodSelect.card[index].moodTitle;
+      final Future<Uri> musicDeliver =
+          _musicProvider!.deliverMusic(selectMoodText);
+      print(musicDeliver);
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-        return MainMemoScreen(moodText: selectMoodText);
+        return MainMemoScreen(
+          moodText: selectMoodText!,
+          musicLoad: musicDeliver,
+        );
       }));
     } else if (MoodSelect.card[index].moodTitle == '사랑') {
-      final selectMoodText = MoodSelect.card[index].moodTitle;
+      final String? selectMoodText = MoodSelect.card[index].moodTitle;
+      final Future<Uri> musicDeliver =
+          _musicProvider!.deliverMusic(selectMoodText);
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-        return MainMemoScreen(moodText: selectMoodText);
+        return MainMemoScreen(
+          moodText: selectMoodText!,
+          musicLoad: musicDeliver,
+        );
       }));
     } else if (MoodSelect.card[index].moodTitle == '위로') {
-      final selectMoodText = MoodSelect.card[index].moodTitle;
+      final String? selectMoodText = MoodSelect.card[index].moodTitle;
+      final Future<Uri> musicDeliver =
+          _musicProvider!.deliverMusic(selectMoodText);
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-        return MainMemoScreen(moodText: selectMoodText);
+        return MainMemoScreen(
+          moodText: selectMoodText!,
+          musicLoad: musicDeliver,
+        );
       }));
     } else if (MoodSelect.card[index].moodTitle == '슬픔') {
-      final selectMoodText = MoodSelect.card[index].moodTitle;
+      final String? selectMoodText = MoodSelect.card[index].moodTitle;
+      final Future<Uri> musicDeliver =
+          _musicProvider!.deliverMusic(selectMoodText);
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-        return MainMemoScreen(moodText: selectMoodText);
+        return MainMemoScreen(
+          moodText: selectMoodText!,
+          musicLoad: musicDeliver,
+        );
       }));
     } else if (MoodSelect.card[index].moodTitle == '화남') {
-      final selectMoodText = MoodSelect.card[index].moodTitle;
+      final String? selectMoodText = MoodSelect.card[index].moodTitle;
+      final Future<Uri> musicDeliver =
+          _musicProvider!.deliverMusic(selectMoodText);
       await Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-        return MainMemoScreen(moodText: selectMoodText);
+        return MainMemoScreen(
+          moodText: selectMoodText!,
+          musicLoad: musicDeliver,
+        );
       }));
     }
   }

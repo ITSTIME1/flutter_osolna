@@ -8,6 +8,7 @@ import 'package:osolna_application/viewModel/angry_provider.dart';
 import 'package:osolna_application/viewModel/consolation_provider.dart';
 import 'package:osolna_application/viewModel/happy_provider.dart';
 import 'package:osolna_application/viewModel/love_provider.dart';
+import 'package:osolna_application/viewModel/music_provider.dart';
 import 'package:osolna_application/viewModel/sadness_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +18,11 @@ import 'package:provider/provider.dart';
  * This page is that when after user clicked move on mood page shown
  */
 class MainMemoScreen extends StatefulWidget {
-  final String? moodText;
-  const MainMemoScreen({Key? key, required this.moodText}) : super(key: key);
+  final String moodText;
+  final Future<Uri> musicLoad;
+  const MainMemoScreen(
+      {Key? key, required this.moodText, required this.musicLoad})
+      : super(key: key);
 
   @override
   State<MainMemoScreen> createState() => _MainMemoScreenState();
@@ -39,6 +43,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   ConsolationDatabaseProvider? _consolationProvider;
   SadnessDatabaseProvider? _sadnessProvider;
   AngryDatabaseProvider? _angryProvider;
+  MusicProvider? _musicProvider;
 
   @override
   void initState() {
@@ -49,6 +54,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     _sadnessProvider =
         Provider.of<SadnessDatabaseProvider>(context, listen: false);
     _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
+    _musicProvider = Provider.of<MusicProvider>(context, listen: false);
     super.initState();
   }
 
@@ -59,6 +65,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     _consolationProvider;
     _sadnessProvider;
     _angryProvider;
+    _musicProvider;
     super.dispose();
   }
 
@@ -81,7 +88,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           title: Column(
             children: [
               Text(
-                widget.moodText! + '저장소',
+                widget.moodText + '저장소',
                 style: TextStyle(
                   color: logoColor,
                   fontFamily: nanumMyeongjo,
@@ -199,7 +206,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 14.0),
                     child: Text(
-                      widget.moodText!,
+                      widget.moodText,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 15.0,
