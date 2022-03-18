@@ -292,7 +292,10 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                                   },
                                   maxLines: 1,
                                   maxLength: 10,
-                                  controller: editTitle,
+                                  controller: editTitle
+                                    ..selection = TextSelection.fromPosition(
+                                        TextPosition(
+                                            offset: editTitle.text.length)),
                                   style: TextStyle(
                                     color: contentTextColor,
                                     fontFamily: nanumGothic,
@@ -353,7 +356,12 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                                           onChanged: (value) {
                                             widget.content = value;
                                           },
-                                          controller: editContent,
+                                          controller: editContent
+                                            ..selection =
+                                                TextSelection.fromPosition(
+                                                    TextPosition(
+                                                        offset: editContent
+                                                            .text.length)),
                                           style: TextStyle(
                                             color: contentTextColor,
                                             fontFamily: nanumGothic,
