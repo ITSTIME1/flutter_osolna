@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers_api.dart';
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
@@ -19,9 +20,11 @@ import 'package:provider/provider.dart';
  */
 class MainMemoScreen extends StatefulWidget {
   final String moodText;
-  final dynamic musicLoad;
+  // 전달받는 뮤직이름.
+  final String selectMusic;
+
   const MainMemoScreen(
-      {Key? key, required this.moodText, required this.musicLoad})
+      {Key? key, required this.moodText, required this.selectMusic})
       : super(key: key);
 
   @override
@@ -32,6 +35,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   dynamic memo;
   final title = TextEditingController();
   final content = TextEditingController();
+  final PlayerState _audioPlayerState = PlayerState.PLAYING;
 
   // ignore: slash_for_doc_comments
   /**
@@ -65,7 +69,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     _consolationProvider;
     _sadnessProvider;
     _angryProvider;
-    _musicProvider;
+    _musicProvider!.playMusic(widget.selectMusic);
+    _musicProvider!.dispose();
     super.dispose();
   }
 
@@ -222,10 +227,15 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                           width: size.width / 2,
                         ),
                         TextButton(
-                          onPressed: () =>
-                              _musicProvider!.playMusic(widget.musicLoad),
+                          onPressed: () {
+                            _audioPlayerState == PlayerState.PLAYING
+                                ? _musicProvider!.pauseMusic()
+                                : _musicProvider!.playMusic(widget.selectMusic);
+                          },
                           child: Text(
-                            '음악재생',
+                            _audioPlayerState == PlayerState.STOPPED
+                                ? '음악재생'
+                                : '음악중지',
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: nanumMyeongjo,
