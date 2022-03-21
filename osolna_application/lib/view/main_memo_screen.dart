@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:audioplayers/audioplayers_api.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
@@ -9,7 +8,6 @@ import 'package:osolna_application/viewModel/angry_provider.dart';
 import 'package:osolna_application/viewModel/consolation_provider.dart';
 import 'package:osolna_application/viewModel/happy_provider.dart';
 import 'package:osolna_application/viewModel/love_provider.dart';
-import 'package:osolna_application/viewModel/music_provider.dart';
 import 'package:osolna_application/viewModel/sadness_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -33,9 +31,9 @@ class MainMemoScreen extends StatefulWidget {
 
 class _MainMemoScreenState extends State<MainMemoScreen> {
   dynamic memo;
+
   final title = TextEditingController();
   final content = TextEditingController();
-  final PlayerState _audioPlayerState = PlayerState.PLAYING;
 
   // ignore: slash_for_doc_comments
   /**
@@ -47,7 +45,9 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   ConsolationDatabaseProvider? _consolationProvider;
   SadnessDatabaseProvider? _sadnessProvider;
   AngryDatabaseProvider? _angryProvider;
-  MusicProvider? _musicProvider;
+  AudioPlayer audioPlayer = AudioPlayer();
+  PlayerState audioPlayerState = PlayerState.PAUSED;
+  AudioCache? audioCache;
 
   @override
   void initState() {
@@ -58,7 +58,12 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     _sadnessProvider =
         Provider.of<SadnessDatabaseProvider>(context, listen: false);
     _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
-    _musicProvider = Provider.of<MusicProvider>(context, listen: false);
+    audioCache = AudioCache(fixedPlayer: audioPlayer);
+    audioPlayer.onPlayerStateChanged.listen((PlayerState p) {
+      setState(() {
+        audioPlayerState = p;
+      });
+    });
     super.initState();
   }
 
@@ -69,9 +74,17 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     _consolationProvider;
     _sadnessProvider;
     _angryProvider;
-    _musicProvider!.playMusic(widget.selectMusic);
-    _musicProvider!.dispose();
+    audioPlayer.release();
+    audioPlayer.dispose();
     super.dispose();
+  }
+
+  playMusic() async {
+    await audioCache!.play(widget.selectMusic);
+  }
+
+  pauseMusic() async {
+    await audioPlayer.pause();
   }
 
   // ignore: slash_for_doc_comments
@@ -178,6 +191,10 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     }
   }
 
+  // ignore: slash_for_doc_comments
+  /**
+   * [Unfocus Method]
+   */
   void unfocus() {
     var currentFocus = FocusScope.of(context);
 
@@ -191,6 +208,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
    * [MainMemoScreen Widget]
    * This Screen is main memo Screen
    */
+
   Widget mainMemoScreen() {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
@@ -228,14 +246,14 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            _audioPlayerState == PlayerState.PLAYING
-                                ? _musicProvider!.pauseMusic()
-                                : _musicProvider!.playMusic(widget.selectMusic);
+                            audioPlayerState == PlayerState.PLAYING
+                                ? pauseMusic()
+                                : playMusic();
                           },
                           child: Text(
-                            _audioPlayerState == PlayerState.STOPPED
-                                ? '음악재생'
-                                : '음악중지',
+                            audioPlayerState == PlayerState.PLAYING
+                                ? '음악중지'
+                                : '음악재생',
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: nanumMyeongjo,
