@@ -93,7 +93,8 @@ class SplashScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 /**
-                 * [FirstSentence] 오늘의 나의 감정을 
+                 * [FirstSentence] 
+                 * 오늘의 나의 감정을 
                  */
                 RichText(
                   textAlign: TextAlign.start,
@@ -119,7 +120,8 @@ class SplashScreen extends StatelessWidget {
                   ),
                 ),
                 /**
-                 * [SecondSentence] 솔직하게 표현해봐요
+                 * [SecondSentence] 
+                 * 솔직하게 표현해봐요
                  */
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
@@ -148,7 +150,8 @@ class SplashScreen extends StatelessWidget {
                   ),
                 ),
                 /**
-                 * [ThirdSentence] 나를 속이지 말아요
+                 * [ThirdSentence] 
+                 * 나를 속이지 말아요
                  */
                 RichText(
                   textAlign: TextAlign.start,
