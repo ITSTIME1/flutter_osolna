@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 /// [MusicFile Path]
 const String happyMusicName = 'test.mp3';
-const String loveMusicName = 'test.mp3';
+const String loveMusicName = 'test1.mp3';
 const String consolationMusicName = 'test.mp3';
 const String sadnessMusicName = 'test.mp3';
 const String angryMusicName = 'test.mp3';

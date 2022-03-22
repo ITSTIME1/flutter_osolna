@@ -59,11 +59,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
         Provider.of<SadnessDatabaseProvider>(context, listen: false);
     _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
     audioCache = AudioCache(fixedPlayer: audioPlayer);
-    audioPlayer.onPlayerStateChanged.listen((PlayerState p) {
-      setState(() {
-        audioPlayerState = p;
-      });
-    });
+    initStateChangeMethod();
     super.initState();
   }
 
@@ -76,15 +72,71 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     _angryProvider;
     audioPlayer.release();
     audioPlayer.dispose();
+    audioCache!.clearAll();
+    initStateChangeMethod();
     super.dispose();
   }
 
-  playMusic() async {
-    await audioCache!.play(widget.selectMusic);
+  // ignore: slash_for_doc_comments
+  /**
+   * [MusicStateChange Method] 
+   * This method is that when you pressed 'audioPlayer' button perform a state change
+   * The status is constantly changed by 'setState()'
+   */
+
+  Future<StreamSubscription<PlayerState>?> initStateChangeMethod() async {
+    try {
+      StreamSubscription<PlayerState> state =
+          audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
+        if (mounted) {
+          setState(() {
+            audioPlayerState = state;
+          });
+        }
+      });
+      return state;
+    } catch (e) {
+      print(e);
+    }
+  }
+  // ignore: slash_for_doc_comments
+  /**
+   * [MusicPlay Method]
+   * This method is used when in the 'PlayerState.PAUSED' state.
+   * If you press the play button in the 'Pause' state
+   * Perform a musicPlay
+   */
+
+  Future<AudioPlayer?> playMusic() async {
+    try {
+      if (audioPlayerState == PlayerState.PAUSED) {
+        var play = await audioCache!.play(widget.selectMusic);
+        return play;
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
-  pauseMusic() async {
-    await audioPlayer.pause();
+  // ignore: slash_for_doc_comments
+  /**
+   * [MusicPause Method]
+   * This method is used when in the 'PlayerState.PLAYING' state.
+   * If you press the pause button in the 'PLAYING' state
+   * Perform a musicPause
+   */
+
+  Future<int?> pauseMusic() async {
+    try {
+      if (audioPlayerState == PlayerState.PLAYING) {
+        var pause = await audioPlayer.pause();
+        return pause;
+      } else if (audioPlayerState == PlayerState.STOPPED) {
+        print('음악 재생을 눌러주세요');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   // ignore: slash_for_doc_comments
@@ -178,7 +230,6 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
           dateTime: DateTime.now().toString(),
         ),
       );
-      moodMemoShowDialog();
     } else if (widget.moodText == '화남') {
       await _angryProvider!.insertMemo(
         memo = Memo(
