@@ -2,8 +2,8 @@ import 'package:elastic_drawer/elastic_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
+import 'package:osolna_application/view/developer_screen.dart';
 import 'package:osolna_application/view/main_screens.dart';
-
 // ignore: slash_for_doc_comments
 /**
  * [MainScreen] 
@@ -19,6 +19,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  bool textChange = false;
+  bool gitHub = false;
+
   @override
   void initState() {
     super.initState();
@@ -47,19 +50,15 @@ class _MainScreenState extends State<MainScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Developer',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                ),
-                textAlign: TextAlign.center,
+              SizedBox(
+                height: size.height / 5,
               ),
-              const Text(
-                'ITSTIME',
+              Text(
+                '오솔나',
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 13.0,
+                  color: logoColor,
+                  fontSize: 20.0,
+                  fontFamily: nanumMyeongjo,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -80,37 +79,78 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
               SizedBox(
-                height: size.height / 12,
+                height: size.height / 15,
               ),
-              const Text(
-                'Music Information',
-                style: TextStyle(
-                  color: Colors.white,
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    if (textChange == false) {
+                      textChange = true;
+                    } else {
+                      textChange = false;
+                    }
+                  });
+                },
+                child: Text(
+                  textChange == false ? '이메일 정보' : 'itstime0809@gmail.com',
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
               SizedBox(
-                height: size.height / 15,
+                height: size.height / 20,
               ),
-              const Text(
-                'Email Information',
-                style: TextStyle(
-                  color: Colors.white,
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  '사진정보',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
               SizedBox(
-                height: size.height / 15,
+                height: size.height / 20,
               ),
-              const Text(
-                'Picture Information',
-                style: TextStyle(
-                  color: Colors.white,
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    if (gitHub == false) {
+                      gitHub = true;
+                    } else {
+                      gitHub = false;
+                    }
+                  });
+                },
+                child: Text(
+                  gitHub == false ? '어플리케이션 정보' : 'https://github.com/ITSTIME1',
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
               SizedBox(
-                height: size.height / 15,
+                height: size.height / 20,
               ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              const DeveloperScreen()));
+                },
+                child: const Text(
+                  '개발자 정보',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              const Spacer(),
               const Text(
-                'Picture TextInformation',
+                'Copyright 2022.(ITSTIME) all rights reserved.',
                 style: TextStyle(
                   color: Colors.white,
                 ),

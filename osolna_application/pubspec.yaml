@@ -70,8 +70,12 @@ flutter:
     - lib/imageData/슬픔.png
     - lib/imageData/위로.png
     - lib/imageData/화남.png
-    - test.mp3
-    - test1.mp3
+    - 행복.mp3
+    - 사랑.mp3
+    - 위로.mp3
+    - 슬픔.mp3
+    - 화남.mp3
+    
     
 
 

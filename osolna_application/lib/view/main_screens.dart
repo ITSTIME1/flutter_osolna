@@ -13,11 +13,11 @@ import 'package:osolna_application/viewModel/simple_provider.dart';
 import 'package:provider/provider.dart';
 
 /// [MusicFile Path]
-const String happyMusicName = 'test.mp3';
-const String loveMusicName = 'test1.mp3';
-const String consolationMusicName = 'test.mp3';
-const String sadnessMusicName = 'test.mp3';
-const String angryMusicName = 'test.mp3';
+const String happyMusicName = '행복.mp3';
+const String loveMusicName = '사랑.mp3';
+const String consolationMusicName = '위로.mp3';
+const String sadnessMusicName = '슬픔.mp3';
+const String angryMusicName = '화남.mp3';
 
 // ignore: slash_for_doc_comments
 /**
