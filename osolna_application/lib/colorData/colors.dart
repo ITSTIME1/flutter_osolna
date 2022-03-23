@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [Colors Data] this variable using all in the osolna application
+ * [Colors Data] 
+ * This variable using all in the osolna application
  * If you want to add color data, add it in this page. 
  */
 

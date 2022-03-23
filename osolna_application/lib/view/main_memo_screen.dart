@@ -34,6 +34,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
 
   final title = TextEditingController();
   final content = TextEditingController();
+  FocusNode titleNode = FocusNode();
+  FocusNode contentNode = FocusNode();
 
   // ignore: slash_for_doc_comments
   /**
@@ -60,6 +62,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
     audioCache = AudioCache(fixedPlayer: audioPlayer);
     initStateChangeMethod();
+    titleNode;
+    contentNode;
     super.initState();
   }
 
@@ -74,6 +78,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     audioPlayer.dispose();
     audioCache!.clearAll();
     initStateChangeMethod();
+    titleNode.dispose();
+    contentNode.dispose();
     super.dispose();
   }
 
@@ -335,6 +341,9 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                           // ** InputTextColor **
 
                           TextField(
+                            focusNode: titleNode,
+                            textInputAction: TextInputAction.next,
+                            autofocus: true,
                             maxLines: 1,
                             maxLength: 10,
                             controller: title,
@@ -393,6 +402,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
                                   scrollDirection: Axis.vertical,
                                   reverse: false,
                                   child: TextField(
+                                    textInputAction: TextInputAction.done,
+                                    focusNode: contentNode,
                                     controller: content,
                                     style: TextStyle(
                                       color: contentTextColor,

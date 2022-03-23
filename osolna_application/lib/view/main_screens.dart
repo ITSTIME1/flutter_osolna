@@ -403,6 +403,8 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
   SimpleMemoDatabaseProvider? _simpleProvider;
   final simpleTitle = TextEditingController();
   final simpleContent = TextEditingController();
+  FocusNode simpleTitleNode = FocusNode();
+  FocusNode simpleContentNode = FocusNode();
 
   // ignore: slash_for_doc_comments
   /**
@@ -412,21 +414,17 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
   void initState() {
     _simpleProvider =
         Provider.of<SimpleMemoDatabaseProvider>(context, listen: false);
+    simpleTitleNode;
+    simpleContentNode;
     super.initState();
   }
 
   @override
   void dispose() {
     _simpleProvider;
+    simpleTitleNode.dispose();
+    simpleContentNode.dispose();
     super.dispose();
-  }
-
-  unfocus() {
-    var currentFocus = FocusScope.of(context);
-
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
   }
 
   // ignore: slash_for_doc_comments
@@ -498,7 +496,9 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
     print('SimpleMemoScreen');
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () => unfocus(),
+      onTap: () => {
+        FocusScope.of(context).unfocus(),
+      },
       child: SingleChildScrollView(
         child: Stack(
           children: [
@@ -551,6 +551,9 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                           // ** InputTextColor **
 
                           TextField(
+                            autofocus: true,
+                            focusNode: simpleTitleNode,
+                            textInputAction: TextInputAction.next,
                             maxLines: 1,
                             maxLength: 10,
                             controller: simpleTitle,
@@ -609,6 +612,8 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                                   scrollDirection: Axis.vertical,
                                   reverse: false,
                                   child: TextField(
+                                    focusNode: simpleContentNode,
+                                    textInputAction: TextInputAction.done,
                                     controller: simpleContent,
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 100,

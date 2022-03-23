@@ -394,15 +394,6 @@ class _MoodMemoListState extends State<MoodMemoList> {
           ),
         ),
         // ignore: prefer_const_literals_to_create_immutables
-        actions: [
-          const Padding(
-            padding: EdgeInsets.only(right: 38.0),
-            child: Icon(
-              Icons.menu,
-              size: 25.0,
-            ),
-          ),
-        ],
       ),
       /**
        * [MoodConsumer] 
