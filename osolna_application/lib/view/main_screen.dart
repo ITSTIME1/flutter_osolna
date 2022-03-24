@@ -2,8 +2,10 @@ import 'package:elastic_drawer/elastic_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
-import 'package:osolna_application/view/developer_screen.dart';
+import 'package:osolna_application/view/application_information_screen.dart';
+import 'package:osolna_application/view/image_screen.dart';
 import 'package:osolna_application/view/main_screens.dart';
+import 'package:osolna_application/view/music_information_screen.dart';
 // ignore: slash_for_doc_comments
 /**
  * [MainScreen] 
@@ -102,7 +104,15 @@ class _MainScreenState extends State<MainScreen> {
                 height: size.height / 20,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const ImageInformationScreen(),
+                    ),
+                  );
+                },
                 child: const Text(
                   '사진정보',
                   style: TextStyle(
@@ -124,8 +134,28 @@ class _MainScreenState extends State<MainScreen> {
                   });
                 },
                 child: Text(
-                  gitHub == false ? '어플리케이션 정보' : 'https://github.com/ITSTIME1',
+                  gitHub == false ? '개발자 정보' : 'https://github.com/ITSTIME1',
                   style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height / 20,
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const MusicInformationScreen(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  '음악정보',
+                  style: TextStyle(
                     color: Colors.white,
                   ),
                 ),
@@ -142,7 +172,7 @@ class _MainScreenState extends State<MainScreen> {
                               const DeveloperScreen()));
                 },
                 child: const Text(
-                  '개발자 정보',
+                  '앱 사용법',
                   style: TextStyle(
                     color: Colors.white,
                   ),
