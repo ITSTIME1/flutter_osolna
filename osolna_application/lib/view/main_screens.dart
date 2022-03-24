@@ -193,192 +193,196 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     print('MoodStorageScreen');
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
       children: [
-        Builder(builder: (storageContext) {
-          return Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  if (MoodSelect.card[0].moodTitle == '행복') {
-                    _selectTitle = MoodSelect.card[0].moodTitle;
-                    selectMoodStorageAlert(_selectTitle);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (storageContext) => MoodMemoList(
-                          selectTitle: _selectTitle!,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          MoodSelect.card[0].moodTitle!,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: nanumMyeongjo,
-                            fontSize: iconSize,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Builder(builder: (storageContext) {
+              return Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      if (MoodSelect.card[0].moodTitle == '행복') {
+                        _selectTitle = MoodSelect.card[0].moodTitle;
+                        selectMoodStorageAlert(_selectTitle);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (storageContext) => MoodMemoList(
+                              selectTitle: _selectTitle!,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              MoodSelect.card[0].moodTitle!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: nanumMyeongjo,
+                                fontSize: iconSize,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: size.height / 12,
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (MoodSelect.card[1].moodTitle == '사랑') {
-                    final _selectTitle = MoodSelect.card[1].moodTitle;
-                    selectMoodStorageAlert(_selectTitle);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (storageContext) => MoodMemoList(
-                          selectTitle: _selectTitle!,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          MoodSelect.card[1].moodTitle!,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: nanumMyeongjo,
-                            fontSize: iconSize,
+                  ),
+                  SizedBox(
+                    height: size.height / 12,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (MoodSelect.card[1].moodTitle == '사랑') {
+                        final _selectTitle = MoodSelect.card[1].moodTitle;
+                        selectMoodStorageAlert(_selectTitle);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (storageContext) => MoodMemoList(
+                              selectTitle: _selectTitle!,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              MoodSelect.card[1].moodTitle!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: nanumMyeongjo,
+                                fontSize: iconSize,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: size.height / 12,
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (MoodSelect.card[2].moodTitle == '위로') {
-                    final _selectTitle = MoodSelect.card[2].moodTitle!;
-                    selectMoodStorageAlert(_selectTitle);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (storageContext) => MoodMemoList(
-                          selectTitle: _selectTitle,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          MoodSelect.card[2].moodTitle!,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: nanumMyeongjo,
-                            fontSize: iconSize,
+                  ),
+                  SizedBox(
+                    height: size.height / 12,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (MoodSelect.card[2].moodTitle == '위로') {
+                        final _selectTitle = MoodSelect.card[2].moodTitle!;
+                        selectMoodStorageAlert(_selectTitle);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (storageContext) => MoodMemoList(
+                              selectTitle: _selectTitle,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              MoodSelect.card[2].moodTitle!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: nanumMyeongjo,
+                                fontSize: iconSize,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: size.height / 12,
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (MoodSelect.card[3].moodTitle == '슬픔') {
-                    final _selectTitle = MoodSelect.card[3].moodTitle!;
-                    selectMoodStorageAlert(_selectTitle);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (storageContext) => MoodMemoList(
-                          selectTitle: _selectTitle,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          MoodSelect.card[3].moodTitle!,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: nanumMyeongjo,
-                            fontSize: iconSize,
+                  ),
+                  SizedBox(
+                    height: size.height / 12,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (MoodSelect.card[3].moodTitle == '슬픔') {
+                        final _selectTitle = MoodSelect.card[3].moodTitle!;
+                        selectMoodStorageAlert(_selectTitle);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (storageContext) => MoodMemoList(
+                              selectTitle: _selectTitle,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              MoodSelect.card[3].moodTitle!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: nanumMyeongjo,
+                                fontSize: iconSize,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: size.height / 12,
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (MoodSelect.card[4].moodTitle == '화남') {
-                    final _selectTitle = MoodSelect.card[4].moodTitle!;
-                    selectMoodStorageAlert(_selectTitle);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (storageContext) => MoodMemoList(
-                          selectTitle: _selectTitle,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          MoodSelect.card[4].moodTitle!,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: nanumMyeongjo,
-                            fontSize: iconSize,
+                  ),
+                  SizedBox(
+                    height: size.height / 12,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (MoodSelect.card[4].moodTitle == '화남') {
+                        final _selectTitle = MoodSelect.card[4].moodTitle!;
+                        selectMoodStorageAlert(_selectTitle);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (storageContext) => MoodMemoList(
+                              selectTitle: _selectTitle,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              MoodSelect.card[4].moodTitle!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: nanumMyeongjo,
+                                fontSize: iconSize,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        }),
+                  ),
+                ],
+              );
+            }),
+          ],
+        ),
       ],
     );
   }
@@ -551,7 +555,6 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                           // ** InputTextColor **
 
                           TextField(
-                            autofocus: true,
                             focusNode: simpleTitleNode,
                             textInputAction: TextInputAction.next,
                             maxLines: 1,
