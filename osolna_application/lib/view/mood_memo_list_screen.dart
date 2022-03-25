@@ -266,7 +266,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        memo.dateTime.toString(),
+                                        memo.dateTime.toString().split('.')[0],
                                         style: TextStyle(
                                           color: maintextColor,
                                           fontFamily: nanumMyeongjo,

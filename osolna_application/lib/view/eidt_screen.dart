@@ -40,11 +40,13 @@ class EditMemoScreen extends StatefulWidget {
 }
 
 class _EditMemoScreenState extends State<EditMemoScreen> {
+  String title = '';
+  String content = '';
+  String widgetTitle = '';
+  String widgetContent = '';
   dynamic memo;
-  final widgetEditText = '';
-  final widgetEditContent = '';
-  TextEditingController editTitle = TextEditingController();
-  TextEditingController editContent = TextEditingController();
+  var editTitle = TextEditingController();
+  var editContent = TextEditingController();
   // ignore: slash_for_doc_comments
   /**
    * [Providers] can access the provider
@@ -64,6 +66,8 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
     _sadnessProvider =
         Provider.of<SadnessDatabaseProvider>(context, listen: false);
     _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
+    widgetTitle = widget.title;
+    widgetContent = widget.content;
     super.initState();
   }
 
@@ -163,17 +167,16 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
    * [MoodMemo Modify Method] 
    * This Method is that when you pressed '수정하기' occur this method
    * widget.title, widget.content 를 그대로 넘겨주는 이유는
-   * 1. 처음 수정하기 버튼을 클릭후 가져온 값을 보여줄때 텍스트 필드에 표시해주기 위해서
-   * 2. 수정한 내용을 그대로 다시 반영해주기 위해서.
+   * 수정한 내용은 title,content 내용을 직접 전해줌.
    */
   Future<void> updateMemo(memo) async {
     if (widget.moodTitle == '행복') {
       await _happyProvider!.updateHappyMemo(
         memo = Memo(
           id: widget.id,
-          title: widget.title.toString(),
-          content: widget.content.toString(),
-          dateTime: DateTime.now().toString(),
+          title: title.toString(),
+          content: content.toString(),
+          dateTime: DateTime.now().toString().split('.')[0],
         ),
       );
       moodMemoModifyDialog();
@@ -181,9 +184,9 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
       await _loveProvider!.updateLoveMemo(
         memo = Memo(
           id: widget.id,
-          title: widget.title.toString(),
-          content: widget.content.toString(),
-          dateTime: DateTime.now().toString(),
+          title: title.toString(),
+          content: content.toString(),
+          dateTime: DateTime.now().toString().split('.')[0],
         ),
       );
       moodMemoModifyDialog();
@@ -191,9 +194,9 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
       await _consolationProvider!.updateConsolationMemo(
         memo = Memo(
           id: widget.id,
-          title: widget.title.toString(),
-          content: widget.content.toString(),
-          dateTime: DateTime.now().toString(),
+          title: title.toString(),
+          content: content.toString(),
+          dateTime: DateTime.now().toString().split('.')[0],
         ),
       );
       moodMemoModifyDialog();
@@ -201,9 +204,9 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
       await _sadnessProvider!.updateSadnessMemo(
         memo = Memo(
           id: widget.id,
-          title: widget.title.toString(),
-          content: widget.content.toString(),
-          dateTime: DateTime.now().toString(),
+          title: title.toString(),
+          content: content.toString(),
+          dateTime: DateTime.now().toString().split('.')[0],
         ),
       );
       moodMemoModifyDialog();
@@ -211,9 +214,9 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
       await _angryProvider!.updateAngryMemo(
         memo = Memo(
           id: widget.id,
-          title: widget.title.toString(),
-          content: widget.content.toString(),
-          dateTime: DateTime.now().toString(),
+          title: title.toString(),
+          content: content.toString(),
+          dateTime: DateTime.now().toString().split('.')[0],
         ),
       );
     }
@@ -228,19 +231,18 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
     return FutureBuilder<List<Memo>>(
       future: findMemo(widget.id),
       builder: (BuildContext context, snapshot) {
+        /**
+         * [EditTitle, EditContent Fix]
+         * title, content bring Parent Widget.
+         */
+        editTitle.text = widgetTitle;
+        editContent.text = widgetContent;
+
         if (snapshot.data == null || snapshot.data!.isEmpty) {
           return const Text(
             '해당 메모를 불러올 수 없습니다',
           );
         } else {
-          /**
-           * [Get data into title,content]
-           */
-          final widgetEditText = widget.title;
-          final widgetEditContent = widget.content;
-          editTitle.text = widgetEditText;
-          editContent.text = widgetEditContent;
-
           return GestureDetector(
             onTap: () => unfocus(),
             child: SingleChildScrollView(
@@ -295,8 +297,8 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                                 // ** InputTextColor **
 
                                 TextField(
-                                  onChanged: (value) {
-                                    widget.title = value;
+                                  onChanged: (String titleText) {
+                                    title = titleText;
                                   },
                                   maxLines: 1,
                                   maxLength: 10,
@@ -361,8 +363,8 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                                         scrollDirection: Axis.vertical,
                                         reverse: false,
                                         child: TextField(
-                                          onChanged: (value) {
-                                            widget.content = value;
+                                          onChanged: (String contentText) {
+                                            content = contentText;
                                           },
                                           controller: editContent
                                             ..selection =

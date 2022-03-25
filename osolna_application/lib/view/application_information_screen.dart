@@ -4,7 +4,7 @@ import 'package:osolna_application/textData/text.dart';
 
 // ignore: slash_for_doc_comments
 /**
- * [DeveloperScree]
+ * [DeveloperScreen]
  * This Screen introducation Developer Screen
  */
 class DeveloperScreen extends StatelessWidget {
