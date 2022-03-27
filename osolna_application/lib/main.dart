@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
 import 'package:osolna_application/view/main_screen.dart';
@@ -61,10 +62,13 @@ class MyApp extends StatelessWidget {
         } else if (snapshot.hasError) {
           return const CircularProgressIndicator();
         } else {
-          return const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: '오솔나',
-            home: MainScreen(),
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            builder: () => const MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: '오솔나',
+              home: MainScreen(),
+            ),
           );
         }
       },

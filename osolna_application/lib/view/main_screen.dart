@@ -1,5 +1,6 @@
 import 'package:elastic_drawer/elastic_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
 import 'package:osolna_application/view/application_information_screen.dart';
@@ -21,17 +22,24 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  late MoodSelectScreen _moodSelectScreen;
+  late MoodStorageScreen _moodStorageScreen;
+  late SimpleMemoScreen _simpleMemoScreen;
+  late SimpleMemoStorageScreen _simpleMemoStorageScreen;
   bool textChange = false;
   bool gitHub = false;
 
   @override
   void initState() {
+    _moodSelectScreen = const MoodSelectScreen();
+    _moodStorageScreen = const MoodStorageScreen();
+    _simpleMemoScreen = const SimpleMemoScreen();
+    _simpleMemoStorageScreen = const SimpleMemoStorageScreen();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     print('mainscreen');
     return Listener(
       onPointerDown: (_) {
@@ -53,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: size.height / 5,
+                height: 125.h,
               ),
               Text(
                 '오솔나',
@@ -81,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
               SizedBox(
-                height: size.height / 15,
+                height: 50.h,
               ),
               TextButton(
                 onPressed: () {
@@ -101,7 +109,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               SizedBox(
-                height: size.height / 20,
+                height: 20.h,
               ),
               TextButton(
                 onPressed: () {
@@ -121,7 +129,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               SizedBox(
-                height: size.height / 20,
+                height: 20.h,
               ),
               TextButton(
                 onPressed: () {
@@ -141,7 +149,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               SizedBox(
-                height: size.height / 20,
+                height: 20.h,
               ),
               TextButton(
                 onPressed: () {
@@ -161,7 +169,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               SizedBox(
-                height: size.height / 20,
+                height: 20.h,
               ),
               TextButton(
                 onPressed: () {
@@ -226,8 +234,8 @@ class _MainScreenState extends State<MainScreen> {
                             Icons.auto_awesome_motion_rounded,
                             size: iconSize,
                           ),
-                          const SizedBox(
-                            height: 5.0,
+                          SizedBox(
+                            height: 5.h,
                           ),
                           Text(
                             '다이어리',
@@ -243,8 +251,8 @@ class _MainScreenState extends State<MainScreen> {
                             Icons.auto_awesome_mosaic_rounded,
                             size: iconSize,
                           ),
-                          const SizedBox(
-                            height: 5.0,
+                          SizedBox(
+                            height: 5.h,
                           ),
                           Text(
                             '감정저장소',
@@ -260,8 +268,8 @@ class _MainScreenState extends State<MainScreen> {
                             Icons.border_color,
                             size: iconSize,
                           ),
-                          const SizedBox(
-                            height: 5.0,
+                          SizedBox(
+                            height: 5.h,
                           ),
                           Text(
                             '간단메모',
@@ -277,8 +285,8 @@ class _MainScreenState extends State<MainScreen> {
                             Icons.menu_book_rounded,
                             size: iconSize,
                           ),
-                          const SizedBox(
-                            height: 5.0,
+                          SizedBox(
+                            height: 5.h,
                           ),
                           Text(
                             '메모저장소',
@@ -291,22 +299,22 @@ class _MainScreenState extends State<MainScreen> {
                     ],
                   ),
                 ),
-                body: const TabBarView(
+                body: TabBarView(
                   children: <Widget>[
                     // ** MoodSelectScreen **
-                    MoodSelectScreen(),
+                    _moodSelectScreen,
                     /**
                    * [MoodStorageScreen]
                    */
-                    MoodStorageScreen(),
+                    _moodStorageScreen,
                     /**
                    * [SimpleMemoScreen]
                    */
-                    SimpleMemoScreen(),
+                    _simpleMemoScreen,
                     /**
                    * [SimpleMemoStorageScreen]
                    */
-                    SimpleMemoStorageScreen(),
+                    _simpleMemoStorageScreen,
                   ],
                 ),
               ),

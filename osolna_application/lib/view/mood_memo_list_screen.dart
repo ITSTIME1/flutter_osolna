@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/textData/text.dart';
-import 'package:osolna_application/view/eidt_screen.dart';
 import 'package:osolna_application/view/view_screen.dart';
 import 'package:osolna_application/viewModel/angry_provider.dart';
 import 'package:osolna_application/viewModel/consolation_provider.dart';
@@ -326,21 +325,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
                           children: [
                             // ** 수정버튼 구현 **
                             TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        EditMemoScreen(
-                                      moodTitle: widget.selectTitle,
-                                      dateTime: memo.dateTime,
-                                      id: memo.id,
-                                      title: memo.title,
-                                      content: memo.content,
-                                    ),
-                                  ),
-                                );
-                              },
+                              onPressed: () {},
                               child: Text(
                                 '수정',
                                 style: TextStyle(
@@ -395,23 +380,8 @@ class _MoodMemoListState extends State<MoodMemoList> {
         ),
         // ignore: prefer_const_literals_to_create_immutables
       ),
-      /**
-       * [MoodConsumer] 
-       * This can access multiProvider
-       * etc. happy, sad, love..
-       */
-      body: Consumer5<
-          HappyDatabaseProvider,
-          LoveDatabaseProvider,
-          ConsolationDatabaseProvider,
-          SadnessDatabaseProvider,
-          AngryDatabaseProvider>(
-        builder: (BuildContext context, happyProvider1, loveProvider2,
-            consolationProvider3, sadnessProvider4, angryProvider5, child) {
-          return Container(
-            child: memoListView(),
-          );
-        },
+      body: Container(
+        child: memoListView(),
       ),
     );
   }

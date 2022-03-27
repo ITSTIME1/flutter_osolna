@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/textData/text.dart';
@@ -16,6 +17,7 @@ import 'package:provider/provider.dart';
  * [MainMemoScreen] 
  * This page is that when after user clicked move on mood page shown
  */
+
 class MainMemoScreen extends StatefulWidget {
   final String moodText;
   // 전달받는 뮤직이름.
@@ -31,11 +33,9 @@ class MainMemoScreen extends StatefulWidget {
 
 class _MainMemoScreenState extends State<MainMemoScreen> {
   dynamic memo;
-
   final title = TextEditingController();
   final content = TextEditingController();
-  FocusNode titleNode = FocusNode();
-  FocusNode contentNode = FocusNode();
+  static final _formKey = GlobalKey<FormState>();
 
   // ignore: slash_for_doc_comments
   /**
@@ -62,8 +62,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
     audioCache = AudioCache(fixedPlayer: audioPlayer);
     initStateChangeMethod();
-    titleNode;
-    contentNode;
+    title;
+    content;
     super.initState();
   }
 
@@ -78,8 +78,8 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
     audioPlayer.dispose();
     audioCache!.clearAll();
     initStateChangeMethod();
-    titleNode.dispose();
-    contentNode.dispose();
+    title;
+    content;
     super.dispose();
   }
 
@@ -267,169 +267,169 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
    */
 
   Widget mainMemoScreen() {
-    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => unfocus(),
       child: SingleChildScrollView(
         child: Stack(
           children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: size.height / 12,
-                  ),
+            Form(
+              key: _formKey,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 120.h,
+                    ),
 
-                  // ** SelectMoodText **
-                  Text(
-                    widget.moodText,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontFamily: nanumMyeongjo,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 14.0,
-                      right: 30.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: size.width / 2,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            audioPlayerState == PlayerState.PLAYING
-                                ? pauseMusic()
-                                : playMusic();
-                          },
-                          child: Text(
-                            audioPlayerState == PlayerState.PLAYING
-                                ? '음악중지'
-                                : '음악재생',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: nanumMyeongjo,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: size.height / 1.7,
-                    width: size.width / 1.2,
-                    decoration: BoxDecoration(
-                      color: appbarColor,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    padding: const EdgeInsets.all(10.0),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxHeight: 200.0,
+                    // ** SelectMoodText **
+                    Text(
+                      widget.moodText,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        fontFamily: nanumMyeongjo,
                       ),
-                      child: Column(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 14.0,
+                        right: 30.0,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          /**
-                         * [Title TextField]
-                         */
-
-                          // ** InputTextColor **
-
-                          TextField(
-                            focusNode: titleNode,
-                            textInputAction: TextInputAction.next,
-                            autofocus: true,
-                            maxLines: 1,
-                            maxLength: 10,
-                            controller: title,
-                            style: TextStyle(
-                              color: contentTextColor,
-                              fontFamily: nanumGothic,
-                              fontSize: titleTextColor,
-                            ),
-
-                            // ** Focusing State Text **
-
-                            decoration: InputDecoration(
-                              counterStyle: TextStyle(
-                                color: logoColor,
-                              ),
-                              hintText: "제목을 적어주세요",
-                              hintStyle: TextStyle(
-                                fontSize: hintTextSize,
-                                fontFamily: nanumMyeongjo,
-                                color: Colors.grey,
-                              ),
-
-                              // ** Static State Text **
-
-                              labelText: "오늘은 어땠어?",
-                              labelStyle: TextStyle(
-                                fontSize: hintTextSize,
+                          SizedBox(
+                            width: 12.h,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              audioPlayerState == PlayerState.PLAYING
+                                  ? pauseMusic()
+                                  : playMusic();
+                            },
+                            child: Text(
+                              audioPlayerState == PlayerState.PLAYING
+                                  ? '음악중지'
+                                  : '음악재생',
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: nanumMyeongjo,
-                              ),
-
-                              // ** Not Focusing State **
-
-                              enabledBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-
-                              // ** Focusing State **
-
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.cyan),
-                              ),
-                            ),
-                          ),
-                          /**
-                         * [Content TextField]
-                         */
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: ConstrainedBox(
-                              constraints: BoxConstraints(
-                                maxHeight: size.height / 1.7 - 113,
-                              ),
-                              child: Scrollbar(
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  reverse: false,
-                                  child: TextField(
-                                    textInputAction: TextInputAction.done,
-                                    focusNode: contentNode,
-                                    controller: content,
-                                    style: TextStyle(
-                                      color: contentTextColor,
-                                      fontFamily: nanumGothic,
-                                      fontSize: titleTextColor,
-                                    ),
-                                    maxLines: 100,
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: '천천히 생각해봐요',
-                                      hintStyle: TextStyle(
-                                        fontSize: hintTextSize,
-                                        fontFamily: nanumMyeongjo,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Container(
+                      height: 300.h,
+                      width: 300.w,
+                      decoration: BoxDecoration(
+                        color: appbarColor,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxHeight: 200.0,
+                        ),
+                        child: Column(
+                          children: [
+                            /**
+                           * [Title TextField]
+                           */
+
+                            // ** InputTextColor **
+
+                            TextFormField(
+                              textInputAction: TextInputAction.next,
+                              autofocus: false,
+                              maxLines: 1,
+                              maxLength: 10,
+                              controller: title,
+                              style: TextStyle(
+                                color: contentTextColor,
+                                fontFamily: nanumGothic,
+                                fontSize: titleTextColor,
+                              ),
+
+                              // ** Focusing State Text **
+
+                              decoration: InputDecoration(
+                                counterStyle: TextStyle(
+                                  color: logoColor,
+                                ),
+                                hintText: "제목을 적어주세요",
+                                hintStyle: TextStyle(
+                                  fontSize: hintTextSize,
+                                  fontFamily: nanumMyeongjo,
+                                  color: Colors.grey,
+                                ),
+
+                                // ** Static State Text **
+
+                                labelText: "오늘은 어땠어?",
+                                labelStyle: TextStyle(
+                                  fontSize: hintTextSize,
+                                  color: Colors.white,
+                                  fontFamily: nanumMyeongjo,
+                                ),
+
+                                // ** Not Focusing State **
+
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                ),
+
+                                // ** Focusing State **
+
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.cyan),
+                                ),
+                              ),
+                            ),
+                            /**
+                           * [Content TextField]
+                           */
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxHeight: 300.h - 113,
+                                ),
+                                child: Scrollbar(
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    reverse: false,
+                                    child: TextFormField(
+                                      textInputAction: TextInputAction.done,
+                                      controller: content,
+                                      style: TextStyle(
+                                        color: contentTextColor,
+                                        fontFamily: nanumGothic,
+                                        fontSize: titleTextColor,
+                                      ),
+                                      maxLines: 100,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: '천천히 생각해봐요',
+                                        hintStyle: TextStyle(
+                                          fontSize: hintTextSize,
+                                          fontFamily: nanumMyeongjo,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -441,7 +441,6 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   @override
   Widget build(BuildContext context) {
     print('MainMemoScreen');
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: mainbackgroundColor,

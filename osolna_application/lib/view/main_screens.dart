@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/slideData/sliding_data.dart';
@@ -105,7 +106,6 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     print('MoodSelectScreen');
     return CarouselSlider.builder(
       itemCount: MoodSelect.card.length,
@@ -121,7 +121,7 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
               ),
             ),
             SizedBox(
-              height: size.height / 25,
+              height: 25.h,
             ),
             Text(
               MoodSelect.card[index].moodTitle!,
@@ -132,13 +132,13 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
               ),
             ),
             SizedBox(
-              height: size.height / 25,
+              height: 25.h,
             ),
             GestureDetector(
               onTap: () async => moodSelect(index),
               child: Image.asset(
                 MoodSelect.card[index].image!,
-                height: size.height / 2,
+                height: 300.h,
               ),
             ),
           ],
@@ -147,7 +147,7 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
       options: CarouselOptions(
         initialPage: 0,
         aspectRatio: 16 / 9,
-        height: size.height / 1,
+        height: 392.h,
       ),
     );
   }
@@ -191,7 +191,6 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     print('MoodStorageScreen');
     return Stack(
       children: [
@@ -235,7 +234,7 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: size.height / 12,
+                    height: 50.h,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -271,7 +270,7 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: size.height / 12,
+                    height: 50.h,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -307,7 +306,7 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: size.height / 12,
+                    height: 50.h,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -343,7 +342,7 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: size.height / 12,
+                    height: 50.h,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -407,8 +406,7 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
   SimpleMemoDatabaseProvider? _simpleProvider;
   final simpleTitle = TextEditingController();
   final simpleContent = TextEditingController();
-  FocusNode simpleTitleNode = FocusNode();
-  FocusNode simpleContentNode = FocusNode();
+  static final _simpleFormKey = GlobalKey<FormState>();
 
   // ignore: slash_for_doc_comments
   /**
@@ -418,16 +416,16 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
   void initState() {
     _simpleProvider =
         Provider.of<SimpleMemoDatabaseProvider>(context, listen: false);
-    simpleTitleNode;
-    simpleContentNode;
+    simpleTitle;
+    simpleContent;
     super.initState();
   }
 
   @override
   void dispose() {
     _simpleProvider;
-    simpleTitleNode.dispose();
-    simpleContentNode.dispose();
+    simpleTitle;
+    simpleContent;
     super.dispose();
   }
 
@@ -498,7 +496,6 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
   @override
   Widget build(BuildContext context) {
     print('SimpleMemoScreen');
-    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => {
         FocusScope.of(context).unfocus(),
@@ -506,144 +503,145 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
       child: SingleChildScrollView(
         child: Stack(
           children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: size.height / 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      right: 25.0,
+            Form(
+              key: _simpleFormKey,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 120.h,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          child: Text(
-                            '저장',
-                            style: TextStyle(
-                              color: maintextColor,
-                              fontFamily: nanumMyeongjo,
-                            ),
-                          ),
-                          onPressed: () async => simpleSaveMemoButton(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: size.height / 3.5,
-                    width: size.width / 1.2,
-                    decoration: BoxDecoration(
-                      color: appbarColor,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    padding: const EdgeInsets.all(10.0),
-                    // 제약조건
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxHeight: 200.0,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: 25.0,
                       ),
-                      child: Column(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          /**
-                             * [Title TextField]
-                             */
-
-                          // ** InputTextColor **
-
-                          TextField(
-                            focusNode: simpleTitleNode,
-                            textInputAction: TextInputAction.next,
-                            maxLines: 1,
-                            maxLength: 10,
-                            controller: simpleTitle,
-                            style: TextStyle(
-                              color: contentTextColor,
-                              fontFamily: nanumGothic,
-                              fontSize: titleTextColor,
-                            ),
-
-                            // ** Focusing State Text **
-
-                            decoration: InputDecoration(
-                              counterStyle: TextStyle(
-                                color: logoColor,
-                              ),
-                              hintText: "제목을 적어주세요",
-                              hintStyle: TextStyle(
-                                fontSize: hintTextSize,
-                                fontFamily: nanumMyeongjo,
-                                color: Colors.grey,
-                              ),
-
-                              // ** Static State Text **
-
-                              labelText: "오늘은 어땠어?",
-                              labelStyle: TextStyle(
-                                fontSize: hintTextSize,
-                                color: Colors.white,
+                          TextButton(
+                            child: Text(
+                              '저장',
+                              style: TextStyle(
+                                color: maintextColor,
                                 fontFamily: nanumMyeongjo,
                               ),
-
-                              // ** Not Focusing State **
-
-                              enabledBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-
-                              // ** Focusing State **
-
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.cyan),
-                              ),
                             ),
+                            onPressed: () async => simpleSaveMemoButton(),
                           ),
-                          /**
-                             * [Content TextField]
-                             */
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: ConstrainedBox(
-                              constraints: BoxConstraints(
-                                maxHeight: size.height / 3.5 - 113,
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 300.h,
+                      width: 300.h,
+                      decoration: BoxDecoration(
+                        color: appbarColor,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      // 제약조건
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxHeight: 200.0,
+                        ),
+                        child: Column(
+                          children: [
+                            /**
+                               * [Title TextField]
+                               */
+
+                            // ** InputTextColor **
+
+                            TextFormField(
+                              textInputAction: TextInputAction.next,
+                              maxLines: 1,
+                              maxLength: 10,
+                              controller: simpleTitle,
+                              style: TextStyle(
+                                color: contentTextColor,
+                                fontFamily: nanumGothic,
+                                fontSize: titleTextColor,
                               ),
-                              child: Scrollbar(
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  reverse: false,
-                                  child: TextField(
-                                    focusNode: simpleContentNode,
-                                    textInputAction: TextInputAction.done,
-                                    controller: simpleContent,
-                                    keyboardType: TextInputType.multiline,
-                                    maxLines: 100,
-                                    style: TextStyle(
-                                      color: contentTextColor,
-                                      fontFamily: nanumGothic,
-                                      fontSize: titleTextColor,
-                                    ),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: '마음을 내려놓고 편하게 써봐요',
-                                      hintStyle: TextStyle(
-                                        fontSize: hintTextSize,
-                                        fontFamily: nanumMyeongjo,
-                                        color: Colors.grey,
+
+                              // ** Focusing State Text **
+
+                              decoration: InputDecoration(
+                                counterStyle: TextStyle(
+                                  color: logoColor,
+                                ),
+                                hintText: "제목을 적어주세요",
+                                hintStyle: TextStyle(
+                                  fontSize: hintTextSize,
+                                  fontFamily: nanumMyeongjo,
+                                  color: Colors.grey,
+                                ),
+
+                                // ** Static State Text **
+
+                                labelText: "오늘은 어땠어?",
+                                labelStyle: TextStyle(
+                                  fontSize: hintTextSize,
+                                  color: Colors.white,
+                                  fontFamily: nanumMyeongjo,
+                                ),
+
+                                // ** Not Focusing State **
+
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                ),
+
+                                // ** Focusing State **
+
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.cyan),
+                                ),
+                              ),
+                            ),
+                            /**
+                               * [Content TextField]
+                               */
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxHeight: 300.h - 113,
+                                ),
+                                child: Scrollbar(
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    reverse: false,
+                                    child: TextFormField(
+                                      textInputAction: TextInputAction.done,
+                                      controller: simpleContent,
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: 100,
+                                      style: TextStyle(
+                                        color: contentTextColor,
+                                        fontFamily: nanumGothic,
+                                        fontSize: titleTextColor,
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: '마음을 내려놓고 편하게 써봐요',
+                                        hintStyle: TextStyle(
+                                          fontSize: hintTextSize,
+                                          fontFamily: nanumMyeongjo,
+                                          color: Colors.grey,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
