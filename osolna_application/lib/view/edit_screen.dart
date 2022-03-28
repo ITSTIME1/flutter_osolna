@@ -138,7 +138,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [MoodMemoDialog]
+   * [EditMemoDialog]
    */
   void moodMemoModifyDialog() {
     showDialog(
@@ -186,7 +186,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
-   * [MoodMemoFind]
+   * [EditMemoFind]
    */
   Future<List<Memo>> findMemo(id) async {
     if (widget.moodTitle == '행복') {
@@ -308,9 +308,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                                   onPressed: () => updateMemo(memo),
                                   child: const Text(
                                     '수정하기',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ],
@@ -320,7 +318,6 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                                 editTitle.text = titleText!;
                               },
                               textInputAction: TextInputAction.next,
-                              autofocus: false,
                               maxLines: 1,
                               maxLength: 10,
                               controller: editTitle,
@@ -333,24 +330,20 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                               // ** Focusing State Text **
 
                               decoration: InputDecoration(
-                                counterStyle: TextStyle(
-                                  color: logoColor,
-                                ),
+                                counterStyle: TextStyle(color: logoColor),
                                 hintText: "제목을 적어주세요",
                                 hintStyle: TextStyle(
-                                  fontSize: hintTextSize,
-                                  fontFamily: nanumMyeongjo,
-                                  color: Colors.grey,
-                                ),
+                                    fontSize: hintTextSize,
+                                    fontFamily: nanumMyeongjo,
+                                    color: Colors.grey),
 
                                 // ** Static State Text **
 
                                 labelText: "오늘은 어땠어?",
                                 labelStyle: TextStyle(
-                                  fontSize: hintTextSize,
-                                  color: Colors.white,
-                                  fontFamily: nanumMyeongjo,
-                                ),
+                                    fontSize: hintTextSize,
+                                    color: Colors.white,
+                                    fontFamily: nanumMyeongjo),
 
                                 // ** Not Focusing State **
 
@@ -394,10 +387,9 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                                         border: InputBorder.none,
                                         hintText: '천천히 생각해봐요',
                                         hintStyle: TextStyle(
-                                          fontSize: hintTextSize,
-                                          fontFamily: nanumMyeongjo,
-                                          color: Colors.grey,
-                                        ),
+                                            fontSize: hintTextSize,
+                                            fontFamily: nanumMyeongjo,
+                                            color: Colors.grey),
                                       ),
                                     ),
                                   ),
