@@ -328,10 +328,17 @@ class _MoodMemoListState extends State<MoodMemoList> {
                             TextButton(
                               onPressed: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            const EditMemoScreen()));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        EditMemoScreen(
+                                      content: memo.title,
+                                      title: memo.content,
+                                      moodTitle: widget.selectTitle,
+                                      id: memo.id,
+                                    ),
+                                  ),
+                                );
                               },
                               child: Text(
                                 '수정',

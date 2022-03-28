@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:osolna_application/colorData/colors.dart';
+import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/textData/text.dart';
 import 'package:osolna_application/viewModel/angry_provider.dart';
 import 'package:osolna_application/viewModel/consolation_provider.dart';
@@ -16,7 +17,17 @@ import 'package:provider/provider.dart';
  */
 
 class EditMemoScreen extends StatefulWidget {
-  const EditMemoScreen({Key? key}) : super(key: key);
+  final dynamic id;
+  final String title;
+  final String content;
+  final String moodTitle;
+  const EditMemoScreen(
+      {Key? key,
+      required this.title,
+      required this.content,
+      required this.moodTitle,
+      required this.id})
+      : super(key: key);
 
   @override
   State<EditMemoScreen> createState() => _EditMemoScreenState();
@@ -24,6 +35,8 @@ class EditMemoScreen extends StatefulWidget {
 
 class _EditMemoScreenState extends State<EditMemoScreen> {
   dynamic memo;
+  String? saveTitle;
+  String? saveContent;
   final editTitle = TextEditingController();
   final editContent = TextEditingController();
   static final _editFormKey = GlobalKey<FormState>();
@@ -50,6 +63,10 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
     _angryProvider = Provider.of<AngryDatabaseProvider>(context, listen: false);
     editTitle;
     editContent;
+    saveTitle = widget.title;
+    saveContent = widget.content;
+    editTitle.text = saveTitle!;
+    editContent.text = saveContent!;
     super.initState();
   }
 
@@ -121,6 +138,131 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
 
   // ignore: slash_for_doc_comments
   /**
+   * [MoodMemoDialog]
+   */
+  void moodMemoModifyDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: appbarColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+
+          // ** Modify Method Main Text Dialog **
+
+          title: Column(
+            children: [
+              Text(
+                '수정이 완료되었습니다',
+                style: TextStyle(
+                  color: logoColor,
+                  fontFamily: nanumMyeongjo,
+                  fontSize: hintTextSize,
+                ),
+              ),
+            ],
+          ),
+
+          // ** Modify Method Sub Text Title **
+
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '성공적으로 수정했습니다.',
+                style: TextStyle(
+                  color: maintextColor,
+                  fontSize: subTextSize,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
+   * [MoodMemoFind]
+   */
+  Future<List<Memo>> findMemo(id) async {
+    if (widget.moodTitle == '행복') {
+      return await _happyProvider!.findMemos(id);
+    } else if (widget.moodTitle == '사랑') {
+      return await _loveProvider!.findMemos(id);
+    } else if (widget.moodTitle == '위로') {
+      return await _consolationProvider!.findMemos(id);
+    } else if (widget.moodTitle == '슬픔') {
+      return await _sadnessProvider!.findMemos(id);
+    } else if (widget.moodTitle == '화남') {
+      return await _angryProvider!.findMemos(id);
+    }
+    // ignore: null_check_always_fails
+    return null!;
+  }
+  // ignore: slash_for_doc_comments
+  /**
+   * [Modify Method]
+   */
+
+  Future<void> updateMemo(memo) async {
+    if (widget.moodTitle == '행복') {
+      await _happyProvider!.updateHappyMemo(
+        memo = Memo(
+          id: widget.id,
+          title: editTitle.text,
+          content: editContent.text,
+          dateTime: DateTime.now().toString().split('.')[0],
+        ),
+      );
+      moodMemoModifyDialog();
+    } else if (widget.moodTitle == '사랑') {
+      await _loveProvider!.updateLoveMemo(
+        memo = Memo(
+          id: widget.id,
+          title: editTitle.text,
+          content: editContent.text,
+          dateTime: DateTime.now().toString().split('.')[0],
+        ),
+      );
+      moodMemoModifyDialog();
+    } else if (widget.moodTitle == '위로') {
+      await _consolationProvider!.updateConsolationMemo(
+        memo = Memo(
+          id: widget.id,
+          title: editTitle.text,
+          content: editContent.text,
+          dateTime: DateTime.now().toString().split('.')[0],
+        ),
+      );
+      moodMemoModifyDialog();
+    } else if (widget.moodTitle == '슬픔') {
+      await _sadnessProvider!.updateSadnessMemo(
+        memo = Memo(
+          id: widget.id,
+          title: editTitle.text,
+          content: editContent.text,
+          dateTime: DateTime.now().toString().split('.')[0],
+        ),
+      );
+      moodMemoModifyDialog();
+    } else if (widget.moodTitle == '화남') {
+      await _angryProvider!.updateAngryMemo(
+        memo = Memo(
+          id: widget.id,
+          title: editTitle.text,
+          content: editContent.text,
+          dateTime: DateTime.now().toString().split('.')[0],
+        ),
+      );
+    }
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
    * [MainMemoScreen Widget]
    * This Screen is main memo Screen
    */
@@ -163,7 +305,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () => updateMemo(memo),
                                   child: const Text(
                                     '수정하기',
                                     style: TextStyle(
@@ -174,11 +316,17 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                               ],
                             ),
                             TextFormField(
+                              onChanged: (titleText) {
+                                editTitle.text = titleText;
+                              },
                               textInputAction: TextInputAction.next,
                               autofocus: false,
                               maxLines: 1,
                               maxLength: 10,
-                              controller: editTitle,
+                              controller: editTitle
+                                ..selection = TextSelection.fromPosition(
+                                    TextPosition(
+                                        offset: editTitle.text.length)),
                               style: TextStyle(
                                 color: contentTextColor,
                                 fontFamily: nanumGothic,
@@ -234,8 +382,16 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                                     scrollDirection: Axis.vertical,
                                     reverse: false,
                                     child: TextFormField(
+                                      onChanged: (contentText) {
+                                        editContent.text = contentText;
+                                      },
                                       textInputAction: TextInputAction.done,
-                                      controller: editContent,
+                                      controller: editContent
+                                        ..selection =
+                                            TextSelection.fromPosition(
+                                                TextPosition(
+                                                    offset: editContent
+                                                        .text.length)),
                                       style: TextStyle(
                                         color: contentTextColor,
                                         fontFamily: nanumGothic,
