@@ -205,7 +205,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
   }
   // ignore: slash_for_doc_comments
   /**
-   * [Modify Method]
+   * [EditModify Method]
    */
 
   Future<void> updateMemo(memo) async {

@@ -914,11 +914,10 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         SimpleEditMemoScreen(
-                                      moodTitle: '간단메모',
-                                      dateTime: simplememo.dateTime,
-                                      id: simplememo.id,
-                                      title: simplememo.title,
                                       content: simplememo.content,
+                                      title: simplememo.title,
+                                      moodTitle: '',
+                                      id: simplememo.id,
                                     ),
                                   ),
                                 );
