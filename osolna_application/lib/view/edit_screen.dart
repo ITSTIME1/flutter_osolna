@@ -265,7 +265,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
   /**
    * [MainMemoScreen Widget]
    * This Screen is main memo Screen
-   */
+  */
 
   Widget editMemoScreen() {
     return GestureDetector(
@@ -316,17 +316,14 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                               ],
                             ),
                             TextFormField(
-                              onChanged: (titleText) {
-                                editTitle.text = titleText;
+                              onSaved: (titleText) {
+                                editTitle.text = titleText!;
                               },
                               textInputAction: TextInputAction.next,
                               autofocus: false,
                               maxLines: 1,
                               maxLength: 10,
-                              controller: editTitle
-                                ..selection = TextSelection.fromPosition(
-                                    TextPosition(
-                                        offset: editTitle.text.length)),
+                              controller: editTitle,
                               style: TextStyle(
                                 color: contentTextColor,
                                 fontFamily: nanumGothic,
@@ -382,16 +379,11 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                                     scrollDirection: Axis.vertical,
                                     reverse: false,
                                     child: TextFormField(
-                                      onChanged: (contentText) {
-                                        editContent.text = contentText;
+                                      onSaved: (contentText) {
+                                        editContent.text = contentText!;
                                       },
                                       textInputAction: TextInputAction.done,
-                                      controller: editContent
-                                        ..selection =
-                                            TextSelection.fromPosition(
-                                                TextPosition(
-                                                    offset: editContent
-                                                        .text.length)),
+                                      controller: editContent,
                                       style: TextStyle(
                                         color: contentTextColor,
                                         fontFamily: nanumGothic,
