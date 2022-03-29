@@ -332,8 +332,8 @@ class _MoodMemoListState extends State<MoodMemoList> {
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         EditMemoScreen(
-                                      content: memo.title,
-                                      title: memo.content,
+                                      content: memo.content,
+                                      title: memo.title,
                                       moodTitle: widget.selectTitle,
                                       id: memo.id,
                                     ),

@@ -34,7 +34,7 @@ class EditMemoScreen extends StatefulWidget {
 }
 
 class _EditMemoScreenState extends State<EditMemoScreen> {
-  dynamic memo;
+  Memo memo = Memo();
   String? saveTitle;
   String? saveContent;
   final editTitle = TextEditingController();

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:osolna_application/colorData/colors.dart';
@@ -49,29 +51,27 @@ void main() {
  * By using Futurebuilder we can use connectionstate 
  */
 
+// ignore: slash_for_doc_comments
+/**
+ * [수정하자 Splash Screen FutureBuilder 는 이런곳에 쓰는게 아니다...]
+ */
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     print('myapp');
-    return FutureBuilder(
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SplashScreen();
-        } else if (snapshot.hasError) {
-          return const CircularProgressIndicator();
-        } else {
-          return ScreenUtilInit(
-            designSize: const Size(360, 690),
-            builder: () => const MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: '오솔나',
-              home: MainScreen(),
-            ),
-          );
-        }
-      },
+    /**
+     * [Screen Util Size]
+     */
+    return ScreenUtilInit(
+      designSize: const Size(360, 800),
+      builder: () => const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: '오솔나',
+        home: SplashScreen(),
+      ),
     );
   }
 }
@@ -82,8 +82,44 @@ class MyApp extends StatelessWidget {
  * This osolna main screen logo.
  */
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    // 1ms = 10(-3)
+    /**
+     * 그리고 MainScreen에서 onBackPressed를 따로 설정해놓지 않거나 stack에 route가 아직 남아있다면
+     * back key를 눌렀을 때 Splash Screen만 계속보이는 상황이 발생하기 때문에 꼭 설정을 해주셔야 됩니다
+     */
+    Timer(const Duration(milliseconds: 2500), () {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => const MainScreen()),
+        (route) => false,
+      );
+    });
+
+    //** [아래 코드는 특정 상황에 따라서 SplashScreen 을 불러오기 전에 무언가 작업이 필요할때 사용하는 코드다] */
+    /**
+     * 임시용으로 작성해둔 코드
+     */
+    // Timer(const Duration(milliseconds: 1500), () {
+    //   if (unknown) {
+    //     exit(0);
+    //   } else {
+    //     Navigator.push(context,
+    //         MaterialPageRoute(builder: (context) => const MainScreen()));
+    //   }
+    // });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +149,7 @@ class SplashScreen extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: '오늘의 나의 감정을',
+                        text: '오늘만큼은',
                         style: TextStyle(
                           color: maintextColor,
                           fontSize: 17.0,
@@ -127,14 +163,41 @@ class SplashScreen extends StatelessWidget {
                  * [SecondSentence] 
                  * 솔직하게 표현해봐요
                  */
+                RichText(
+                  textAlign: TextAlign.start,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '솔 ',
+                        style: TextStyle(
+                          color: logoColor,
+                          fontSize: 40.0,
+                          fontFamily: nanumMyeongjo,
+                        ),
+                      ),
+                      TextSpan(
+                        text: '솔직해봐요',
+                        style: TextStyle(
+                          color: maintextColor,
+                          fontSize: 17.0,
+                          fontFamily: nanumGothic,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                /**
+                 * [ThirdSentence] 
+                 * 나를 속이지 말아요
+                 */
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
+                  padding: const EdgeInsets.only(left: 22.0, top: 3.0),
                   child: RichText(
                     textAlign: TextAlign.start,
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: '솔 ',
+                          text: '나 ',
                           style: TextStyle(
                             color: logoColor,
                             fontSize: 40.0,
@@ -142,7 +205,7 @@ class SplashScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: '솔직하게 표현해봐요',
+                          text: '나를 위해서요',
                           style: TextStyle(
                             color: maintextColor,
                             fontSize: 17.0,
@@ -151,33 +214,6 @@ class SplashScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                ),
-                /**
-                 * [ThirdSentence] 
-                 * 나를 속이지 말아요
-                 */
-                RichText(
-                  textAlign: TextAlign.start,
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '나 ',
-                        style: TextStyle(
-                          color: logoColor,
-                          fontSize: 40.0,
-                          fontFamily: nanumMyeongjo,
-                        ),
-                      ),
-                      TextSpan(
-                        text: '나를 속이지 말아요',
-                        style: TextStyle(
-                          color: maintextColor,
-                          fontSize: 17.0,
-                          fontFamily: nanumGothic,
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],
