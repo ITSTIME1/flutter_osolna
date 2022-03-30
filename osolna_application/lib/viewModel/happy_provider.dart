@@ -88,6 +88,7 @@ class HappyDatabaseProvider extends ChangeNotifier {
     final hd = await happyDatabase;
     final List<Map<String, dynamic>> happyMaps = await hd.query(_tableName);
     notifyListeners();
+    print(happyMaps);
     return List.generate(
       happyMaps.length,
       (index) {

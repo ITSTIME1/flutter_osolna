@@ -464,7 +464,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
             padding: const EdgeInsets.only(right: 30.0),
             child: IconButton(
               icon: const Icon(
-                Icons.article_outlined,
+                Icons.save_alt_rounded,
                 size: 25.0,
               ),
               onPressed: () async => saveMemoButton(),
