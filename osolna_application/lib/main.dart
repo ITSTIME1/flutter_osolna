@@ -51,11 +51,6 @@ void main() {
  * By using Futurebuilder we can use connectionstate 
  */
 
-// ignore: slash_for_doc_comments
-/**
- * [수정하자 Splash Screen FutureBuilder 는 이런곳에 쓰는게 아니다...]
- */
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -99,11 +94,11 @@ class _SplashScreenState extends State<SplashScreen> {
      */
     Timer(const Duration(milliseconds: 2500), () {
       Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => const MainScreen()),
-        (route) => false,
-      );
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const MainScreen(),
+          ),
+          (route) => false);
     });
 
     //** [아래 코드는 특정 상황에 따라서 SplashScreen 을 불러오기 전에 무언가 작업이 필요할때 사용하는 코드다] */
