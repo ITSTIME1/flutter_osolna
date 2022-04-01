@@ -244,7 +244,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
                        * when you dobule tap these memo, so move on ViewMemoScreen
                        */
                       GestureDetector(
-                        onDoubleTap: () async => viewMemo(memo),
+                        onLongPress: () async => viewMemo(memo),
                         child: Container(
                           height: size.height / 8,
                           decoration: BoxDecoration(
