@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/textData/text.dart';
@@ -354,7 +355,14 @@ class _MoodMemoListState extends State<MoodMemoList> {
                                     ),
                                   );
                                 } else {
-                                  print('24시간이 지났습니다.');
+                                  Fluttertoast.showToast(
+                                      msg: "하루가 지나\n수정이 불가능 합니다.",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.TOP,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: drawerBackgroundColor,
+                                      textColor: logoColor,
+                                      fontSize: 16.0);
                                 }
                               },
                               child: Text(

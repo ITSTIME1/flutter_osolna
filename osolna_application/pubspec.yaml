@@ -42,6 +42,7 @@ dependencies:
   flutter_screenutil: ^5.3.1
   elastic_drawer:
   url_launcher: 
+  fluttertoast: ^8.0.9
 
 
 dev_dependencies:
