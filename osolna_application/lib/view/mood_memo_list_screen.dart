@@ -43,6 +43,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
   ConsolationDatabaseProvider? _consolationProvider;
   SadnessDatabaseProvider? _sadnessProvider;
   AngryDatabaseProvider? _angryProvider;
+  bool isAvailable = false;
 
   @override
   void initState() {
@@ -325,25 +326,43 @@ class _MoodMemoListState extends State<MoodMemoList> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             // ** 수정버튼 구현 **
+
                             TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        EditMemoScreen(
-                                      content: memo.content,
-                                      title: memo.title,
-                                      moodTitle: widget.selectTitle,
-                                      id: memo.id,
+                                // 현재 시간을 담고
+                                var nowDateTime = DateTime.now();
+                                dynamic selectDateTime = memo.dateTime;
+                                int? difference = int.tryParse(nowDateTime
+                                    .difference(DateTime.parse(selectDateTime))
+                                    .inDays
+                                    .toString());
+                                // 터치 한 메모의 시간을 가져온다.
+                                // 터치한 메모 시간을 현재 시간이랑 비교했을때 현재 시간보다 적다면
+
+                                if (difference != null && difference < 1) {
+                                  isAvailable = true;
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          EditMemoScreen(
+                                        content: memo.content,
+                                        title: memo.title,
+                                        moodTitle: widget.selectTitle,
+                                        id: memo.id,
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                } else {
+                                  print('24시간이 지났습니다.');
+                                }
                               },
                               child: Text(
-                                '수정',
+                                isAvailable == true ? '수정하기' : '수정불가',
                                 style: TextStyle(
-                                  color: logoColor,
+                                  color: isAvailable == true
+                                      ? Colors.white
+                                      : Colors.red,
                                 ),
                               ),
                             ),
