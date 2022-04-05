@@ -336,7 +336,6 @@ class _SimpleEditMemoScreenState extends State<SimpleEditMemoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('SimpleEditScreen');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: mainbackgroundColor,

@@ -56,7 +56,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('myapp');
     /**
      * [Screen Util Size]
      */
@@ -118,7 +117,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('splashScreen');
+  
     return Scaffold(
       backgroundColor: mainbackgroundColor,
       body: Stack(

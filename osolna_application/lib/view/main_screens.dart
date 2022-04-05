@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/memoRepository/memo.dart';
 import 'package:osolna_application/slideData/sliding_data.dart';
@@ -106,7 +107,6 @@ class _MoodSelectScreenState extends State<MoodSelectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('MoodSelectScreen');
     return CarouselSlider.builder(
       itemCount: MoodSelect.card.length,
       itemBuilder: (BuildContext context, int index, int _) {
@@ -191,7 +191,6 @@ class _MoodStorageScreenState extends State<MoodStorageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('MoodStorageScreen');
     return Stack(
       children: [
         Column(
@@ -495,7 +494,6 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('SimpleMemoScreen');
     return GestureDetector(
       onTap: () => {
         FocusScope.of(context).unfocus(),
@@ -667,6 +665,7 @@ class SimpleMemoStorageScreen extends StatefulWidget {
 
 class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
   SimpleMemoDatabaseProvider? _simpleProvider;
+  bool isAvailable = false;
   @override
   void initState() {
     _simpleProvider =
@@ -826,7 +825,7 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
                   Stack(
                     children: [
                       GestureDetector(
-                        onDoubleTap: () async => viewMemo(simplememo),
+                        onLongPress: () async => viewMemo(simplememo),
                         child: Container(
                           height: size.height / 8,
                           decoration: BoxDecoration(
@@ -909,18 +908,44 @@ class _SimpleMemoStorageScreenState extends State<SimpleMemoStorageScreen> {
                             // ** 수정버튼 구현 **
                             TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        SimpleEditMemoScreen(
-                                      content: simplememo.content,
-                                      title: simplememo.title,
-                                      moodTitle: '',
-                                      id: simplememo.id,
+                                // 현재 시간을 담고
+                                var nowSimpleDateTime = DateTime.now();
+                                dynamic simpleSelectDateTime =
+                                    simplememo.dateTime;
+                                int? simpleDifference = int.tryParse(
+                                    nowSimpleDateTime
+                                        .difference(DateTime.parse(
+                                            simpleSelectDateTime))
+                                        .inDays
+                                        .toString());
+                                // 터치 한 메모의 시간을 가져온다.
+                                // 터치한 메모 시간을 현재 시간이랑 비교했을때 현재 시간보다 적다면
+                                if (simpleDifference != null &&
+                                    simpleDifference < 1) {
+                                  isAvailable = true;
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          SimpleEditMemoScreen(
+                                        content: simplememo.content,
+                                        title: simplememo.title,
+                                        moodTitle: '',
+                                        id: simplememo.id,
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                } else {
+                                  isAvailable = false;
+                                  Fluttertoast.showToast(
+                                      msg: "하루가 지나\n수정이 불가능 합니다.",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.TOP,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: drawerBackgroundColor,
+                                      textColor: logoColor,
+                                      fontSize: 16.0);
+                                }
                               },
                               child: Text(
                                 '수정',

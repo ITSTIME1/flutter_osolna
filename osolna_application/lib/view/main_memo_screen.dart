@@ -440,7 +440,6 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('MainMemoScreen');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: mainbackgroundColor,

@@ -11,6 +11,7 @@ import 'package:osolna_application/viewModel/happy_provider.dart';
 import 'package:osolna_application/viewModel/love_provider.dart';
 import 'package:osolna_application/viewModel/sadness_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: slash_for_doc_comments
 /**
@@ -202,7 +203,6 @@ class _MoodMemoListState extends State<MoodMemoList> {
    * This Widget is only shown loadMemo() interface
    */
   Widget memoListView() {
-    Size size = MediaQuery.of(context).size;
     return FutureBuilder<List<Memo>>(
       future: loadMemo(),
       builder: (context, snap) {
@@ -248,7 +248,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
                       GestureDetector(
                         onLongPress: () async => viewMemo(memo),
                         child: Container(
-                          height: size.height / 8,
+                          height: 100.h,
                           decoration: BoxDecoration(
                             color: appbarColor,
                             border: Border.all(
@@ -354,7 +354,9 @@ class _MoodMemoListState extends State<MoodMemoList> {
                                       ),
                                     ),
                                   );
+                                  // 시간 차이가 24 시간이 넘어 간 경우.
                                 } else {
+                                  isAvailable = false;
                                   Fluttertoast.showToast(
                                       msg: "하루가 지나\n수정이 불가능 합니다.",
                                       toastLength: Toast.LENGTH_SHORT,
@@ -366,12 +368,8 @@ class _MoodMemoListState extends State<MoodMemoList> {
                                 }
                               },
                               child: Text(
-                                isAvailable == true ? '수정하기' : '수정불가',
-                                style: TextStyle(
-                                  color: isAvailable == true
-                                      ? Colors.white
-                                      : Colors.red,
-                                ),
+                                '수정',
+                                style: TextStyle(color: logoColor),
                               ),
                             ),
                             TextButton(
@@ -389,7 +387,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
                     ],
                   ),
                   SizedBox(
-                    height: size.height / 30,
+                    height: 30.h,
                   ),
                 ],
               );
@@ -403,7 +401,7 @@ class _MoodMemoListState extends State<MoodMemoList> {
   @override
   Widget build(BuildContext context) {
     // 그 외에 provider 접근.
-    print('memolist');
+
     // Future<List<Memo>>
     return Scaffold(
       backgroundColor: mainbackgroundColor,
