@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:osolna_application/colorData/colors.dart';
 import 'package:osolna_application/textData/text.dart';
 import 'package:osolna_application/view/main_screen.dart';
@@ -20,8 +21,9 @@ import 'package:provider/provider.dart';
  * The route can access various mood providers.
  * HappyProvider, LoveProvider, ConsolationProvider, SadnessProvider, AngryProvider
  */
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await MobileAds.instance.initialize();
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(
@@ -117,7 +119,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       backgroundColor: mainbackgroundColor,
       body: Stack(

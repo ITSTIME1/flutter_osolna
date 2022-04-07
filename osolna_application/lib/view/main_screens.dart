@@ -494,11 +494,11 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => {
-        FocusScope.of(context).unfocus(),
-      },
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: GestureDetector(
+        onTap: () => {
+          FocusScope.of(context).unfocus(),
+        },
         child: Stack(
           children: [
             Form(
@@ -508,11 +508,11 @@ class _SimpleMemoScreenState extends State<SimpleMemoScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 120.h,
+                      height: 50.h,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        right: 25.0,
+                        right: 40.0,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,

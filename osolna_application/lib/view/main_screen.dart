@@ -1,7 +1,9 @@
 import 'package:elastic_drawer/elastic_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:osolna_application/colorData/colors.dart';
+import 'package:osolna_application/memoRepository/ad_helper.dart';
 import 'package:osolna_application/textData/text.dart';
 import 'package:osolna_application/view/application_information_screen.dart';
 import 'package:osolna_application/view/image_screen.dart';
@@ -26,16 +28,47 @@ class _MainScreenState extends State<MainScreen> {
   late MoodStorageScreen _moodStorageScreen;
   late SimpleMemoScreen _simpleMemoScreen;
   late SimpleMemoStorageScreen _simpleMemoStorageScreen;
+  late BannerAd _bannerAd;
+  bool _isBannerAdReady = false;
   bool textChange = false;
   bool gitHub = false;
 
   @override
   void initState() {
+    _bannerAd = BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          // print('Failed to load a banner ad: ${err.message}');
+          _isBannerAdReady = false;
+          ad.dispose();
+        },
+      ),
+    );
+
+    _bannerAd.load();
     _moodSelectScreen = const MoodSelectScreen();
     _moodStorageScreen = const MoodStorageScreen();
     _simpleMemoScreen = const SimpleMemoScreen();
     _simpleMemoStorageScreen = const SimpleMemoStorageScreen();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _moodSelectScreen = const MoodSelectScreen();
+    _moodStorageScreen = const MoodStorageScreen();
+    _simpleMemoScreen = const SimpleMemoScreen();
+    _simpleMemoStorageScreen = const SimpleMemoStorageScreen();
+    _bannerAd.dispose();
+    super.dispose();
   }
 
   @override
@@ -298,22 +331,58 @@ class _MainScreenState extends State<MainScreen> {
                     ],
                   ),
                 ),
-                body: TabBarView(
-                  children: <Widget>[
-                    // ** MoodSelectScreen **
-                    _moodSelectScreen,
-                    /**
-                   * [MoodStorageScreen]
-                   */
-                    _moodStorageScreen,
-                    /**
-                   * [SimpleMemoScreen]
-                   */
-                    _simpleMemoScreen,
-                    /**
-                   * [SimpleMemoStorageScreen]
-                   */
-                    _simpleMemoStorageScreen,
+                body: Stack(
+                  children: [
+                    Container(
+                      color: appbarColor,
+                    ),
+                    Container(
+                      color: appbarColor,
+                    ),
+                    Container(
+                      color: appbarColor,
+                    ),
+                    TabBarView(
+                      children: <Widget>[
+                        // ** MoodSelectScreen **
+                        _moodSelectScreen,
+                        /**
+                       * [MoodStorageScreen]
+                       */
+                        _moodStorageScreen,
+                        /**
+                       * [SimpleMemoScreen]
+                       */
+                        _simpleMemoScreen,
+                        /**
+                       * [SimpleMemoStorageScreen]
+                       */
+                        _simpleMemoStorageScreen,
+                      ],
+                    ),
+                    if (_isBannerAdReady)
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: SizedBox(
+                              width: _bannerAd.size.width.toDouble(),
+                              height: _bannerAd.size.height.toDouble(),
+                              child: AdWidget(ad: _bannerAd),
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: const [
+                            CircularProgressIndicator(),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               ),

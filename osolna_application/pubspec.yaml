@@ -43,6 +43,7 @@ dependencies:
   elastic_drawer:
   url_launcher: 
   fluttertoast: ^8.0.9
+  google_mobile_ads: ^1.2.0
 
 
 dev_dependencies:
