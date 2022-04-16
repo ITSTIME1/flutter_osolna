@@ -251,6 +251,7 @@ class _MainMemoScreenState extends State<MainMemoScreen> {
   // ignore: slash_for_doc_comments
   /**
    * [Unfocus Method]
+   * unfocus method 수정필요
    */
   void unfocus() {
     var currentFocus = FocusScope.of(context);
